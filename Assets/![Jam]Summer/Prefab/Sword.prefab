@@ -104,6 +104,7 @@ MonoBehaviour:
   _health: 0
   _pos: {x: 0, y: 0}
   _isPlayer: 0
+  Priority: 2
   MaxStep: 2
   Step: 2
   Damage: 4

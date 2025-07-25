@@ -14,7 +14,11 @@ public class GridMaster : ObjectGridMono
 
     public IEnumerator Step()
     {
-        cards = from p in Grid.GetDictionary().Values select p as Card;
+        cards = from s in 
+                    from p in Grid.GetDictionary().Values
+                    select p as Card 
+                orderby s.IsPlayer, s.Priority 
+                descending select s;
         foreach (var card in cards)
         {
             yield return card.TurnStart();

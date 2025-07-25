@@ -14,6 +14,7 @@ public class CardEntity : Card
     }
     public override IEnumerator TurnStart()
     {
+        if (Health == 0) yield break;
         while (Step > 0)
         {
             if (GridMaster.instant.TryFindNearestEnemy(_pos, !IsPlayer, out Card enemy, out float dist))
