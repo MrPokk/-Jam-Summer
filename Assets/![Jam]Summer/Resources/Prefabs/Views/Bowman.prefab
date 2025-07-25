@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 9158224541237506133}
   - component: {fileID: 4315088164581038935}
   - component: {fileID: 8331135883336175244}
+  - component: {fileID: 4562153114118918489}
   m_Layer: 0
-  m_Name: Bow
+  m_Name: Bowman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 0050680d78101009f95a042ea325d2de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: -1144631338, guid: e8a236fe9e15b8cc89ab33a13adaed29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8331135883336175244
@@ -109,3 +110,16 @@ MonoBehaviour:
   Step: 2
   Damage: 2
   AttackDist: 2.8
+--- !u!114 &4562153114118918489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442898396003440809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d494573ae0c7bb692a124b7dacc7d273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _replacementColor: {r: 1, g: 1, b: 1, a: 1}

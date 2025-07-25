@@ -7,7 +7,7 @@ namespace BitterCMS.Utility.Interfaces
     {
         public Type ID => GetType();
     }
-    
+
     public interface ISerializerProvider
     {
         Type GetObjectType();
@@ -16,27 +16,27 @@ namespace BitterCMS.Utility.Interfaces
         string Serialization();
         object Deserialize();
     }
-    
+
     public interface IRoot
     {
-        protected internal void PreStartGame();
-        protected internal void UpdateGame( float timeDelta);
-        protected internal void PhysicUpdateGame(float timeDelta);
-        protected internal void LateUpdateGame(float timeDelta);
+        public void PreStartGame();
+        public void UpdateGame(float timeDelta);
+        public void PhysicUpdateGame(float timeDelta);
+        public void LateUpdateGame(float timeDelta);
 
-        protected internal void StoppedGame();
+        public void StoppedGame();
     }
 
     public interface IXmlIncludeExtraType
     {
         public Type[] GetExtraType();
     }
-    
+
     public interface IInitializable
     {
         public void Init();
     }
-    
+
     public interface IInitializable<T> where T : InitializableProperty
     {
         [XmlIgnore]
@@ -45,7 +45,7 @@ namespace BitterCMS.Utility.Interfaces
         public void Init(T property);
         public T ValidateProperty(T property) { return property; }
     }
-    
+
     public abstract class InitializableProperty : IXmlIncludeExtraType
     {
         public virtual Type[] GetExtraType() => new[] { GetType() };

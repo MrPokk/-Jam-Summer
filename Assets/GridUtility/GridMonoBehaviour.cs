@@ -2,7 +2,7 @@
 
 namespace Utility.Grid
 {
-    public abstract class GridMonoBehaviour <T> : MonoBehaviour
+    public abstract class GridMonoBehaviour<T> : MonoBehaviour
     {
         public Grid<T> Grid { get; private set; }
         public Vector2Int Size;
@@ -22,12 +22,11 @@ namespace Utility.Grid
         [SerializeField]
         private int _SizeFont = 20;
 #endif
-        public void Awake()
+        public virtual void Init()
         {
             Grid = new Grid<T>(Size);
-            Init();
         }
-        public virtual void Init() => Grid.Init(Size);
+
         public Vector2Int MouseToGrid()
         {
             return WorldToGrid(Camera.main.ScreenToWorldPoint(Input.mousePosition));

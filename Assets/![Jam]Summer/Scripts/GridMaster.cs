@@ -7,18 +7,21 @@ public class GridMaster : ObjectGridMono
 {
     private IEnumerable<Card> cards;
     public static GridMaster instant { private set; get; }
-    public void OnEnable()
+
+    public void Create()
     {
+        Init();
         instant = this;
     }
 
     public IEnumerator Step()
     {
-        cards = from s in 
+        cards = from s in
                     from p in Grid.GetDictionary().Values
-                    select p as Card 
-                orderby s.IsPlayer, s.Priority 
-                descending select s;
+                    select p as Card
+                orderby s.IsPlayer, s.Priority
+                descending
+                select s;
         foreach (var card in cards)
         {
             yield return card.TurnStart();

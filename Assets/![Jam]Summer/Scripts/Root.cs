@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using BitterCMS.UnityIntegration;
 using BitterCMS.UnityIntegration.Utility;
+using UnityEngine;
 
 public class Root : RootMonoBehavior
 {
@@ -9,13 +10,18 @@ public class Root : RootMonoBehavior
     public int Step;
     public int CountBow;
     public int CountSword;
+    public GridMaster GridMaster;
+
+
     protected override void GlobalStart()
     {
+
+        GridMaster.Create();
         for (int i = 0; i < CountBow; i++)
         {
             Card entity = Instantiate(Bow);
             entity.Init();
-            GridMaster.instant.AddRandomPos(entity, out var pos);
+            GridMaster.AddRandomPos(entity, out var pos);
             entity.SetPos(pos);
             entity.SetTeam(i % 2 == 0);
         }
@@ -23,7 +29,7 @@ public class Root : RootMonoBehavior
         {
             Card entity = Instantiate(Sword);
             entity.Init();
-            GridMaster.instant.AddRandomPos(entity, out var pos);
+            GridMaster.AddRandomPos(entity, out var pos);
             entity.SetPos(pos);
             entity.SetTeam(i % 2 == 0);
         }
@@ -31,7 +37,7 @@ public class Root : RootMonoBehavior
     }
     private IEnumerator Loop()
     {
-        yield return GridMaster.instant.Step();
+        yield return GridMaster.Step();
         Step--;
         if (Step > 0) yield return Loop();
     }
