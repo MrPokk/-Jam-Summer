@@ -23,6 +23,7 @@ namespace Utility.Grid
                 _values[pos] = value;
             }
         }
+        public Grid() { }
         public Grid(Vector2Int size)
         {
             Init(size);

@@ -7,8 +7,9 @@ public class GridMaster : ObjectGridMono
 {
     private IEnumerable<Card> cards;
     public static GridMaster instant { private set; get; }
-    public void OnEnable()
+    public override void Init()
     {
+        base.Init();
         instant = this;
     }
 

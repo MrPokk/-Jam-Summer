@@ -22,12 +22,11 @@ namespace Utility.Grid
         [SerializeField]
         private int _SizeFont = 20;
 #endif
-        public void Awake()
+        public virtual void Init()
         {
             Grid = new Grid<T>(Size);
-            Init();
+            Grid.Init(Size);
         }
-        public virtual void Init() => Grid.Init(Size);
         public Vector2Int MouseToGrid()
         {
             return WorldToGrid(Camera.main.ScreenToWorldPoint(Input.mousePosition));

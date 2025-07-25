@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public abstract class Card : MonoBehaviour
@@ -10,6 +8,8 @@ public abstract class Card : MonoBehaviour
     [SerializeField]
     protected int _health;
     [SerializeField]
+    protected int _price;
+    [SerializeField]
     protected Vector2Int _pos;
     [SerializeField]
     protected bool _isPlayer;
@@ -17,6 +17,7 @@ public abstract class Card : MonoBehaviour
 
     public int MaxHealth => _maxHealth;
     public int Health => _health;
+    public int Price => _price;
     public Vector2Int PosGrid => _pos;
     public bool IsPlayer => _isPlayer;
 
@@ -33,6 +34,14 @@ public abstract class Card : MonoBehaviour
             Dead();
         }
     }
+    public virtual void Healing(int count)
+    {
+        _health += count;
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+    }
     public virtual void Dead()
     {
         GridMaster.instant.Delete(_pos);
@@ -45,7 +54,7 @@ public abstract class Card : MonoBehaviour
     {
         _isPlayer = team;
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (team) renderer.color = new Color(1, 0.5f, 0.5f);
+        if (!team) renderer.color = new Color(1, 0.5f, 0.5f);
         else renderer.color = new Color(0.5f, 1, 0.5f);
     }
 }
