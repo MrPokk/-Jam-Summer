@@ -18,8 +18,8 @@ public class GridMaster : ObjectGridMono
         cards = from s in 
                     from p in Grid.GetDictionary().Values
                     select p as Card 
-                orderby s.IsPlayer, s.Priority 
-                descending select s;
+                orderby s.IsPlayer, s.Priority descending 
+                select s;
         foreach (var card in cards)
         {
             yield return card.TurnStart();
@@ -29,6 +29,15 @@ public class GridMaster : ObjectGridMono
         {
             yield return card.TurnEnd();
         }
+    }
+    public int GetCountType(Card card, bool team)
+    {
+        var select = from s in
+                         from p in Grid.GetDictionary().Values
+                         select p as Card
+                     where s.IsPlayer == team && s.gameObject.name.StartsWith(card.gameObject.name)
+                     select s;
+        return select.Count();
     }
     public bool TryFindNearestEnemy(Vector2Int pos, bool team, out Card enemy, out float minDistance)
     {
