@@ -50,8 +50,8 @@ public class ObjectGridMono : GridMonoBehaviour<MonoBehaviour>
         bool res = Grid.TryGetAtPos(pos, out MonoBehaviour value);
         if (res)
         {
-            Destroy(value);
             Grid.Remove(pos);
+            Destroy(value.gameObject);
         }
         return res;
     }
