@@ -76,5 +76,5 @@ public class EnemyMaster : ControlMaster
         }
         return res;
     }
-    protected bool SpawnPrioritySword() => (float)CountBow / (CountSword + 0.00001f) < BowOnSword;
+    protected bool SpawnPrioritySword() => CountSword / (CountSword + CountBow + 1.0f) > BowOnSword;
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using BitterCMS.UnityIntegration;
 using BitterCMS.UnityIntegration.Utility;
+using UnityEngine;
 
 
 public class Root : RootMonoBehavior
@@ -9,6 +10,7 @@ public class Root : RootMonoBehavior
     public CardList CardList;
     public static PlayerMaster Player;
     public static EnemyMaster Enemy;
+
     protected override void GlobalStart()
     {
         Player = GetComponent<PlayerMaster>();

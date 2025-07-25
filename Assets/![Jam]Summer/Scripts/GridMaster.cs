@@ -15,10 +15,10 @@ public class GridMaster : ObjectGridMono
 
     public IEnumerator Step()
     {
-        cards = from s in 
+        cards = from s in
                     from p in Grid.GetDictionary().Values
                     select p as Card 
-                orderby s.IsPlayer, s.Priority descending 
+                orderby s.Priority descending, s.IsPlayer  
                 select s;
         foreach (var card in cards)
         {

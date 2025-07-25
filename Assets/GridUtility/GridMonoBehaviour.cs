@@ -2,7 +2,7 @@
 
 namespace Utility.Grid
 {
-    public abstract class GridMonoBehaviour <T> : MonoBehaviour
+    public abstract class GridMonoBehaviour<T> : MonoBehaviour
     {
         public Grid<T> Grid { get; private set; }
         public Vector2Int Size;
@@ -25,7 +25,7 @@ namespace Utility.Grid
         public virtual void Init()
         {
             Grid = new Grid<T>(Size);
-            Grid.Init(Size);
+          //  Grid.Init(Size);
         }
         public Vector2Int MouseToGrid()
         {

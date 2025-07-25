@@ -1,7 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using BitterCMS.CMSSystem;
+
 using UnityEngine;
 
-public abstract class Card : MonoBehaviour
+public abstract class Card : CMSViewCore
 {
     [SerializeField]
     protected int _maxHealth;
@@ -53,8 +57,19 @@ public abstract class Card : MonoBehaviour
     public virtual void SetTeam(bool team)
     {
         _isPlayer = team;
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (!team) renderer.color = new Color(1, 0.5f, 0.5f);
-        else renderer.color = new Color(0.5f, 1, 0.5f);
+
+        var renderer = GetComponent<SpriteRenderer>();
+        var colorComponent = GetComponent<ShaderColorController>();            
+
+        if (_isPlayer)
+        {
+            colorComponent?.SetReplacementColor(Color.green);
+        }
+        else
+        {
+            renderer.flipX = true;
+            colorComponent?.SetReplacementColor(Color.red);
+        }
     }
 }
+

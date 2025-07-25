@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3860954034406282918}
   - component: {fileID: 3362190912421575471}
-  - component: {fileID: 4774586526250846706}
+  - component: {fileID: 3062865646762970883}
   m_Layer: 0
-  m_Name: Castle
+  m_Name: Build
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 4943380675026707179, guid: ed33cc294045a6923bf9b1007a63f9d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4774586526250846706
+--- !u!114 &3062865646762970883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,14 +97,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3795698409203402912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44b645d1c6b3444db6e075e0c4a3041, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cb022e8de66d294493d67943bac28d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 5
   _health: 0
-  _price: 1000
+  _price: 20
   _pos: {x: 0, y: 0}
   _isPlayer: 0
-  Priority: -10
-  Income: 30
-  HealingHp: 0
+  Priority: -1
+  Income: 2
+  HealingHp: 1

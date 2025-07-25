@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CardEntity : Card
 {
-    public const float TimeMove = 0.3f;
-    public const float TimeAttack = 0.1f;
+    public const float TimeMove = 0.1f;
+    public const float TimeAttack = 0.05f;
     public int MaxStep;
     public int Step;
     public int Damage;
@@ -82,7 +82,7 @@ public class CardEntity : Card
                 Vector2Int neighbor = new Vector2Int(_pos.x + x, _pos.y + y);
 
                 // Если клетка свободна и ближе к цели, чем текущая позиция
-                if (!GridMaster.instant.TryGetAtPos(neighbor, out var __null))
+                if (!GridMaster.instant.TryGetAtPos(neighbor, out var __null) && GridMaster.instant.Grid.CheckInSize(neighbor))
                 {
                     // Предпочитаем движения, которые приближают к цели
                     float currentDist = Vector2Int.Distance(_pos, targetPos);

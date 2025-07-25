@@ -26,11 +26,6 @@ namespace Utility.Grid
         public Grid() { }
         public Grid(Vector2Int size)
         {
-            Init(size);
-        }
-
-        public void Init(Vector2Int size)
-        {
             if (size.x <= 0) throw new Exception("The size of the grid in x cannot be < 1");
             if (size.y <= 0) throw new Exception("The size of the grid in y cannot be < 1");
             _size = size;
