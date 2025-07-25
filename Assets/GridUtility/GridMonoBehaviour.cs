@@ -25,7 +25,7 @@ namespace Utility.Grid
         public virtual void Init()
         {
             Grid = new Grid<T>(Size);
-            Grid.Init(Size);
+          //  Grid.Init(Size);
         }
         public Vector2Int MouseToGrid()
         {

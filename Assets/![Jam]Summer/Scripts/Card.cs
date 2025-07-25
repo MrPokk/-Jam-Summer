@@ -58,16 +58,17 @@ public abstract class Card : CMSViewCore
     {
         _isPlayer = team;
 
-
-        var colorComponent = GetComponent<ShaderColorController>();
+        var renderer = GetComponent<SpriteRenderer>();
+        var colorComponent = GetComponent<ShaderColorController>();            
 
         if (_isPlayer)
         {
-            colorComponent.SetReplacementColor(Color.green);
+            colorComponent?.SetReplacementColor(Color.green);
         }
         else
         {
-            colorComponent.SetReplacementColor(Color.red);
+            renderer.flipX = true;
+            colorComponent?.SetReplacementColor(Color.red);
         }
     }
 }

@@ -10,8 +10,6 @@ public class Root : RootMonoBehavior
     public CardList CardList;
     public static PlayerMaster Player;
     public static EnemyMaster Enemy;
-    public GridMaster GridMaster;
-
 
     protected override void GlobalStart()
     {
