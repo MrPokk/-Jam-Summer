@@ -61,10 +61,26 @@ public class CardEntity : Card
 
     protected Vector2Int NormalizedVec2Int(Vector2Int vector)
     {
-        if (vector.x > 0) vector.x = 1;
-        if (vector.y > 0) vector.y = 1;
-        if (vector.x < 0) vector.x = -1;
-        if (vector.y < 0) vector.y = -1;
+        Vector2 vector2 = vector;
+        vector2.Normalize();
+        if (Mathf.Abs(vector2.x) == Mathf.Abs(vector2.y))
+        {
+            vector.x = System.Math.Sign(vector2.x);
+            vector.y = System.Math.Sign(vector2.y);
+        }
+        else
+        {
+            if (Mathf.Abs(vector2.x) > Mathf.Abs(vector2.y))
+            {
+                vector.x = System.Math.Sign(vector2.x);
+                vector.y = 0;
+            }
+            else
+            {
+                vector.x = 0;
+                vector.y = System.Math.Sign(vector2.y);
+            }
+        }
         return vector;
     }
 }

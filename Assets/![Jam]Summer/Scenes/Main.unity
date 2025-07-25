@@ -129,6 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4632349}
   - component: {fileID: 4632348}
+  - component: {fileID: 4632350}
+  - component: {fileID: 4632351}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -153,7 +155,6 @@ MonoBehaviour:
   Step: 20
   CountBow: 6
   CountSword: 6
-  GridMaster: {fileID: 935691422}
 --- !u!4 &4632349
 Transform:
   m_ObjectHideFlags: 0
@@ -169,6 +170,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4632350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f672c941adcfe464eaea5d430f1106f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cards: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
+  Money: 0
+  Team: 0
+  PosCastle: {x: 16, y: 3}
+  LineFront: 13
+  LineBack: 14
+  MoneyFromBuild: 0
+  SaveMoneyBuild: 0.2
+--- !u!114 &4632351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddf3d3d4d4bda64c896e4668200f135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cards: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
+  Money: 0
+  Team: 1
+  PosCastle: {x: 0, y: 3}
+  LineFront: 3
+  LineBack: 2
+  MoneyFromBuild: 0
+  SaveMoneyBuild: 0.4
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 935691423}
-  - component: {fileID: 935691422}
+  - component: {fileID: 935691424}
   m_Layer: 0
   m_Name: GridMaster
   m_TagString: Untagged
@@ -678,7 +719,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &935691422
+--- !u!4 &935691423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935691421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.52, y: -3.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &935691424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -695,7 +751,7 @@ MonoBehaviour:
   Offset: {x: 0, y: 0}
   _Draw: 1
   _Color: {r: 1, g: 1, b: 1, a: 1}
-  _DrawFont: 0
+  _DrawFont: 1
   _ColorFont: {r: 1, g: 1, b: 1, a: 1}
   _SizeFont: 20
   AutoPos: 1
@@ -711,55 +767,9 @@ Transform:
   m_LocalPosition: {x: -8.52, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1357466767}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1357466766
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1357466767}
-  - component: {fileID: 1357466768}
-  m_Layer: 0
-  m_Name: Grid
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1357466767
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357466766}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 734486098}
-  m_Father: {fileID: 935691423}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!156049354 &1357466768
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357466766}
-  m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BitterCMS.CMSSystem;
+
 using UnityEngine;
 
 public abstract class Card : CMSViewCore
@@ -11,6 +12,8 @@ public abstract class Card : CMSViewCore
     [SerializeField]
     protected int _health;
     [SerializeField]
+    protected int _price;
+    [SerializeField]
     protected Vector2Int _pos;
     [SerializeField]
     protected bool _isPlayer;
@@ -18,6 +21,7 @@ public abstract class Card : CMSViewCore
 
     public int MaxHealth => _maxHealth;
     public int Health => _health;
+    public int Price => _price;
     public Vector2Int PosGrid => _pos;
     public bool IsPlayer => _isPlayer;
 
@@ -34,6 +38,14 @@ public abstract class Card : CMSViewCore
             Dead();
         }
     }
+    public virtual void Healing(int count)
+    {
+        _health += count;
+        if (_health > _maxHealth)
+        {
+            _health = _maxHealth;
+        }
+    }
     public virtual void Dead()
     {
         GridMaster.instant.Delete(_pos);
@@ -45,6 +57,7 @@ public abstract class Card : CMSViewCore
     public virtual void SetTeam(bool team)
     {
         _isPlayer = team;
+
 
         var colorComponent = GetComponent<ShaderColorController>();
 

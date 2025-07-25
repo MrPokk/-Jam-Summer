@@ -23,6 +23,7 @@ namespace Utility.Grid
                 _values[pos] = value;
             }
         }
+        public Grid() { }
         public Grid(Vector2Int size)
         {
             if (size.x <= 0) throw new Exception("The size of the grid in x cannot be < 1");

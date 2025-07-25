@@ -3,42 +3,32 @@ using BitterCMS.UnityIntegration;
 using BitterCMS.UnityIntegration.Utility;
 using UnityEngine;
 
+
 public class Root : RootMonoBehavior
 {
-    public Card Bow;
-    public Card Sword;
-    public int Step;
-    public int CountBow;
-    public int CountSword;
+    public GridMaster Grid;
+    public CardList CardList;
+    public static PlayerMaster Player;
+    public static EnemyMaster Enemy;
     public GridMaster GridMaster;
 
 
     protected override void GlobalStart()
     {
+        Player = GetComponent<PlayerMaster>();
+        Enemy = GetComponent<EnemyMaster>();
 
-        GridMaster.Create();
-        for (int i = 0; i < CountBow; i++)
-        {
-            Card entity = Instantiate(Bow);
-            entity.Init();
-            GridMaster.AddRandomPos(entity, out var pos);
-            entity.SetPos(pos);
-            entity.SetTeam(i % 2 == 0);
-        }
-        for (int i = 0; i < CountSword; i++)
-        {
-            Card entity = Instantiate(Sword);
-            entity.Init();
-            GridMaster.AddRandomPos(entity, out var pos);
-            entity.SetPos(pos);
-            entity.SetTeam(i % 2 == 0);
-        }
+        Grid.Init();
+        Player.Init();
+        Enemy.Init();
+
         CoroutineUtility.Run(Loop());
     }
     private IEnumerator Loop()
     {
-        yield return GridMaster.Step();
-        Step--;
-        if (Step > 0) yield return Loop();
+        yield return Player.Step();
+        yield return Enemy.Step();
+        yield return Grid.Step();
+        yield return Loop();
     }
 }
