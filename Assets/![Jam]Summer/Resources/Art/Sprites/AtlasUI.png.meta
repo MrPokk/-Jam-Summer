@@ -222,6 +222,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AtlasUI_5
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 81
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3311dc283bd91cb7293e9fabdd870206
+      internalID: 802755539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -241,6 +263,7 @@ TextureImporter:
       AtlasUI_2: -900472886
       AtlasUI_3: 2029772386
       AtlasUI_4: 613563473
+      AtlasUI_5: 802755539
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

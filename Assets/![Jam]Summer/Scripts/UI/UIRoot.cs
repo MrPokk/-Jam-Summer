@@ -3,16 +3,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class UIRoot : MonoBehaviour
 {
     private Root _root = null;
+
+    [field: SerializeField] public Canvas CanvasRoot { get; private set; }
+    [field: SerializeField] public HUD HudRoot { get; private set; }
+
     private Vector3 _changesTextInitialPosition;
     private Vector3 _changesTextInitialScale;
-    [SerializeField]
-    private TMP_Text _moneyText = null;
-    [SerializeField]
-    private TMP_Text _changesMoneyText = null;
+
+    [SerializeField] private TMP_Text _priseHouseTexts;
+    [SerializeField] private TMP_Text _priseBowmanTexts;
+    [SerializeField] private TMP_Text _priseSwordsmanTexts;
+    [SerializeField] private TMP_Text _moneyText;
+    [SerializeField] private TMP_Text _changesMoneyText;
 
     private void Start()
     {
@@ -20,12 +27,23 @@ public class UIRoot : MonoBehaviour
         _root.Player.MoneyChangeUI += MoneyChangeUI;
         _moneyText.text = _root.Player.Money.ToString();
 
-        if (_changesMoneyText != null)
-        {
-            _changesMoneyText.alpha = 0f;
-            _changesTextInitialPosition = _changesMoneyText.transform.localPosition;
-            _changesTextInitialScale = _changesMoneyText.transform.localScale;
-        }
+        SetChangesMoney();
+
+        SetPrises();
+    }
+
+    private void SetPrises()
+    {
+        _priseHouseTexts.text = _root.Player.Cards.Build.Price.ToString();
+        _priseBowmanTexts.text = _root.Player.Cards.Bow.Price.ToString();
+        _priseSwordsmanTexts.text = _root.Player.Cards.Sword.Price.ToString();
+    }
+
+    private void SetChangesMoney()
+    {
+        _changesMoneyText.alpha = 0f;
+        _changesTextInitialPosition = _changesMoneyText.transform.localPosition;
+        _changesTextInitialScale = _changesMoneyText.transform.localScale;
     }
 
     public void MoneyChangeUI(int money)
