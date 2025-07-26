@@ -1,5 +1,8 @@
-﻿public class PlayerMaster : ControlMaster
+﻿using System;
+
+public class PlayerMaster : ControlMaster
 {
+    public event Action<int> MoneyChanged;
 
     public void SpawnSword()
     {
@@ -12,7 +15,9 @@
 
         SpawnCardToGridLine(Cards.Sword, LineFront);
         Money = delta;
+        MoneyChanged?.Invoke(Money);
     }
+
     public void SpawnBow()
     {
         var delta = Money - Cards.Sword.Price;
@@ -23,5 +28,6 @@
         }
         SpawnCardToGridLine(Cards.Bow, LineBack);
         Money = delta;
+        MoneyChanged?.Invoke(Money);
     }
 }
