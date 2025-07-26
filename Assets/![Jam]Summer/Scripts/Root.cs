@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using BitterCMS.UnityIntegration;
 using BitterCMS.UnityIntegration.Utility;
-using UnityEngine;
-
 
 public class Root : RootMonoBehavior
 {
@@ -24,7 +22,7 @@ public class Root : RootMonoBehavior
     }
     private IEnumerator Loop()
     {
-        yield return Player;
+        yield return Player.Step();
         yield return Enemy.Step();
         yield return Grid.Step();
         yield return Loop();

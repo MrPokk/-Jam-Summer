@@ -1,6 +1,5 @@
-using BitterCMS.UnityIntegration;
+﻿using BitterCMS.UnityIntegration;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIRoot : MonoBehaviour
 {
@@ -14,15 +13,16 @@ public class UIRoot : MonoBehaviour
 
     public void SpawnHouseUI()
     {
+        _root.Player.SpawnBuild();
     }
 
     public void SpawnBowmanUI()
     {
-        _root.Player.SpawnBow();
+        _root.Player.SpawnBowman();
     }
 
     public void SpawnSwordsmanUI()
     {
-        _root.Player.SpawnSword();
+        _root.Player.SpawnSwordsman();
     }
 }

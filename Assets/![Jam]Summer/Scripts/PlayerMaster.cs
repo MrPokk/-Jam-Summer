@@ -1,27 +1,12 @@
-﻿public class PlayerMaster : ControlMaster
+﻿using System.Collections;
+
+public class PlayerMaster : ControlMaster
 {
-
-    public void SpawnSword()
+    public IEnumerator Step()
     {
-        var delta = Money - Cards.Sword.Price;
-        if (delta <= 0)
-        {
-            //TODO animation
-            return;
-        }
-
-        SpawnCardToGridLine(Cards.Sword, LineFront);
-        Money = delta;
+        yield break;
     }
-    public void SpawnBow()
-    {
-        var delta = Money - Cards.Sword.Price;
-        if (delta <= 0)
-        {
-            //TODO animation
-            return;
-        }
-        SpawnCardToGridLine(Cards.Bow, LineBack);
-        Money = delta;
-    }
+    public bool SpawnBowman() => SpawnCard(Cards.Bow);
+    public bool SpawnSwordsman() => SpawnCard(Cards.Sword);
+    public bool SpawnBuild() => SpawnCard(Cards.Build);
 }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Castle: {fileID: 4774586526250846706, guid: 99daa1e3ac5690746ab78c42866f2758, type: 3}
   Build: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
-  Bow: {fileID: 8331135883336175244, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
-  Sword: {fileID: 8331135883336175244, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
+  Bow: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+  Sword: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}

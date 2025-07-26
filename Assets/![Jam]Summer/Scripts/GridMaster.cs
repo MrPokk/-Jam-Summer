@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -39,7 +40,7 @@ public class GridMaster : ObjectGridMono
                      select s;
         return select.Count();
     }
-    public bool TryFindNearestEnemy(Vector2Int pos, bool team, out Card enemy, out float minDistance)
+    public bool TryFindNearestEntity(Vector2Int pos, bool team, out Card enemy, out float minDistance)
     {
         enemy = null;
         var enemies = from p in cards where p.IsPlayer == team select p;
@@ -55,5 +56,14 @@ public class GridMaster : ObjectGridMono
         }
         if (enemy) return true;
         return false;
+    }
+    public int GetCountTypeInSquare<TCard>(Vector2Int point1, Vector2Int point2, bool team) where TCard : Card
+    {
+        var select = from card in
+                         from s in Grid.GetDictionary().Values
+                         select s as Card
+                     where card is TCard && card.IsPlayer == team && card.PosGrid.x >= point1.x && card.PosGrid.y >= point1.y && card.PosGrid.x <= point2.x && card.PosGrid.y <= point2.y
+                     select card;
+        return select.Count();
     }
 }
