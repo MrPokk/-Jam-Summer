@@ -18,7 +18,6 @@ public class Root : RootMonoBehavior
     {
         _uIRoot.CanvasRoot.gameObject.SetActive(false);
 
-
         CoroutineUtility.Run(LoadGame());
     }
     private IEnumerator LoadGame()
