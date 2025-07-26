@@ -3,13 +3,12 @@ using BitterCMS.UnityIntegration;
 
 public class CardBuild : Card
 {
-
-
     public int Income;
     public int HealingHp;
     public override IEnumerator TurnEnd()
     {
-        GlobalState.GetRoot<Root>().Enemy.GiveMoney(Income);
+        if (IsPlayer) GlobalState.GetRoot<Root>().Player.GiveMoney(Income);
+        else GlobalState.GetRoot<Root>().Enemy.GiveMoney(Income);
         yield break;
     }
 

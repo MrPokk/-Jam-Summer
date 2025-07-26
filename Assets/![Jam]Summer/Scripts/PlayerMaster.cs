@@ -1,33 +1,29 @@
-﻿using System;
+using System;
+using System.Collections;
 
 public class PlayerMaster : ControlMaster
 {
-    public event Action<int> MoneyChanged;
+    public event Action<int> MoneyChangeUI;
 
-    public void SpawnSword()
+    public IEnumerator Step()
     {
-        var delta = Money - Cards.Sword.Price;
-        if (delta <= 0)
-        {
-            //TODO animation
-            return;
-        }
-
-        SpawnCardToGridLine(Cards.Sword, LineFront);
-        Money = delta;
-        MoneyChanged?.Invoke(Money);
+        yield break;
+    }
+    public bool SpawnBowman()
+    {
+        MoneyChangeUI.Invoke(Money);
+        return SpawnCard(Cards.Bow);
     }
 
-    public void SpawnBow()
+    public bool SpawnSwordsman()
     {
-        var delta = Money - Cards.Sword.Price;
-        if (delta <= 0)
-        {
-            //TODO animation
-            return;
-        }
-        SpawnCardToGridLine(Cards.Bow, LineBack);
-        Money = delta;
-        MoneyChanged?.Invoke(Money);
+        MoneyChangeUI.Invoke(Money);
+        return SpawnCard(Cards.Sword);
+    }
+
+    public bool SpawnBuild()
+    {
+        MoneyChangeUI.Invoke(Money);
+        return SpawnCard(Cards.Build);
     }
 }

@@ -106,5 +106,5 @@ MonoBehaviour:
   _pos: {x: 0, y: 0}
   _isPlayer: 0
   Priority: -1
-  Income: 2
+  Income: 1
   HealingHp: 1

@@ -10,6 +10,7 @@ public class CardEntity : Card
     public int Step;
     public int Damage;
     public float AttackDist;
+    public bool IsFront;
     public override void Init()
     {
         base.Init();
@@ -20,7 +21,7 @@ public class CardEntity : Card
         if (Health == 0) yield break;
         while (Step > 0)
         {
-            if (GridMaster.instant.TryFindNearestEnemy(_pos, !IsPlayer, out Card enemy, out float dist))
+            if (GridMaster.instant.TryFindNearestEntity(_pos, !IsPlayer, out Card enemy, out float dist))
             {
                 if (dist > AttackDist)
                 {

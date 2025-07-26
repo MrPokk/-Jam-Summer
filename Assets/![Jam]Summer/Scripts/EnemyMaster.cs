@@ -30,10 +30,8 @@ public class EnemyMaster : ControlMaster
         CountSword = GridMaster.instant.GetCountType(Cards.Sword, Team);
         while (MoneyFromBuild > Cards.Build.Price)
         {
-            if (SpawnCardToGridLine(Cards.Build, PosCastle.x))
+            if (SpawnCard(Cards.Build))
             {
-                MoneyFromBuild -= Cards.Build.Price;
-                Money -= Cards.Build.Price;
                 yield return new WaitForSeconds(0.3f);
             }
             else
@@ -47,8 +45,9 @@ public class EnemyMaster : ControlMaster
             bool res;
             do
             {
-                if (SpawnPrioritySword()) res = SpawnBow();
-                else res = SpawnSword();
+                int money = (int)(Money - MoneyFromBuild);
+                if (SpawnPrioritySword()) res = SpawnCard(Cards.Sword, money);
+                else res = SpawnCard(Cards.Bow, money);
                 yield return new WaitForSeconds(0.3f);
             }
             while (res);
@@ -56,23 +55,15 @@ public class EnemyMaster : ControlMaster
         IncomeStep = 0;
         yield break;
     }
-    protected bool SpawnSword()
+    public override bool SpawnCard(Card card, int money)
     {
-        bool res = Money - MoneyFromBuild >= Cards.Sword.Price && SpawnCardToGridLine(Cards.Sword, LineFront);
+        bool res = base.SpawnCard(card, money);
         if (res)
         {
-            CountSword++;
-            Money -= Cards.Sword.Price;
-        }
-        return res;
-    }
-    protected bool SpawnBow()
-    {
-        bool res = Money - MoneyFromBuild >= Cards.Bow.Price && SpawnCardToGridLine(Cards.Bow, LineBack);
-        if (res)
-        {
-            CountBow++;
-            Money -= Cards.Bow.Price;
+            if (card is CardSwordsman) CountSword++;
+            else if (card is CardBowman) CountBow++;
+            else if (card is CardBuild) MoneyFromBuild -= card.Price;
+            else throw new System.Exception("Not standard card");
         }
         return res;
     }

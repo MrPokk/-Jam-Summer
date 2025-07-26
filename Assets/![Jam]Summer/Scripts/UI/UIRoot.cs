@@ -8,8 +8,7 @@ public class UIRoot : MonoBehaviour
 {
     private Root _root = null;
     private Vector3 _changesTextInitialPosition;
-    private Vector3 _changesTextInitialScale; // Сохраняем начальный масштаб
-
+    private Vector3 _changesTextInitialScale;
     [SerializeField]
     private TMP_Text _moneyText = null;
     [SerializeField]
@@ -18,7 +17,7 @@ public class UIRoot : MonoBehaviour
     private void Start()
     {
         _root = GlobalState.GetRoot<Root>();
-        _root.Player.MoneyChanged += MoneyChangeUI;
+        _root.Player.MoneyChangeUI += MoneyChangeUI;
         _moneyText.text = _root.Player.Money.ToString();
 
         if (_changesMoneyText != null)
@@ -41,21 +40,22 @@ public class UIRoot : MonoBehaviour
 
     public void SpawnHouseUI()
     {
+        _root.Player.SpawnBuild();
     }
 
     public void SpawnBowmanUI()
     {
-        _root.Player.SpawnBow();
+        _root.Player.SpawnBowman();
     }
 
     public void SpawnSwordsmanUI()
     {
-        _root.Player.SpawnSword();
+        _root.Player.SpawnSwordsman();
     }
 
     private void OnDestroy()
     {
-        _root.Player.MoneyChanged -= MoneyChangeUI;
+        _root.Player.MoneyChangeUI -= MoneyChangeUI;
     }
 
     private void AnimationMoneyChangeUI(in int difference = 0)
