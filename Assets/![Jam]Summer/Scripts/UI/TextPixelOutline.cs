@@ -90,7 +90,7 @@ public class TextPixelOutline : MonoBehaviour
         }
     }
 
-    public Transform GetTransform() => _mainText != null ? _mainText.gameObject.transform : throw new Exception("MainText is null");
+    public Transform GetTransform() => _mainText != null ? _mainText.transform : throw new Exception("MainText is null");
     public Vector3 GetPosition() => _mainText != null ? _mainText.transform.localPosition : throw new Exception("MainText is null");
     public Vector3 GetScale() => _mainText != null ? _mainText.transform.localScale : throw new Exception("MainText is null");
 

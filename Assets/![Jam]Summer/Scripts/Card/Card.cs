@@ -48,7 +48,7 @@ public abstract class Card : CMSViewCore
     }
     public virtual void Dead()
     {
-        GridMaster.instant.Delete(_pos);
+        GridMaster.Instance.Delete(_pos);
     }
 
     public abstract IEnumerator TurnStart();
@@ -63,7 +63,7 @@ public abstract class Card : CMSViewCore
 
         if (_isPlayer)
         {
-            colorComponent?.SetReplacementColor(Color.green);
+            colorComponent?.SetReplacementColor(Color.blue);
         }
         else
         {

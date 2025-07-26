@@ -23,7 +23,7 @@ public class CardEntity : Card
         if (Health == 0) yield break;
         while (Step > 0)
         {
-            if (GridMaster.instant.TryFindNearestEntity(_pos, !IsPlayer, out Card enemy, out float dist))
+            if (GridMaster.Instance.TryFindNearestEntity(_pos, !IsPlayer, out Card enemy, out float dist))
             {
                 if (dist > AttackDist)
                 {
@@ -54,8 +54,8 @@ public class CardEntity : Card
 
         if (nextStep != _pos) // Если нашли возможный шаг
         {
-            GridMaster.instant.Remove(_pos);
-            GridMaster.instant.Add(this, nextStep);
+            GridMaster.Instance.Remove(_pos);
+            GridMaster.Instance.Add(this, nextStep);
             _pos = nextStep;
             yield return new WaitForSeconds(TimeMove);
         }
@@ -66,7 +66,7 @@ public class CardEntity : Card
         Vector2Int direction = NormalizedVec2Int(targetPos - _pos);
         Vector2Int straightMove = _pos + direction;
 
-        if (!GridMaster.instant.TryGetAtPos(straightMove, out var _null))
+        if (!GridMaster.Instance.TryGetAtPos(straightMove, out var _null))
         {
             return straightMove;
         }
@@ -77,7 +77,7 @@ public class CardEntity : Card
             {
                 if (x == 0 && y == 0) continue;
                 Vector2Int neighbor = new Vector2Int(_pos.x + x, _pos.y + y);
-                if (!GridMaster.instant.TryGetAtPos(neighbor, out var __null) && GridMaster.instant.Grid.CheckInSize(neighbor))
+                if (!GridMaster.Instance.TryGetAtPos(neighbor, out var __null) && GridMaster.Instance.Grid.CheckInSize(neighbor))
                 {
                     float currentDist = Vector2Int.Distance(_pos, targetPos);
                     float newDist = Vector2Int.Distance(neighbor, targetPos);
@@ -100,7 +100,7 @@ public class CardEntity : Card
     {
         card.TakeDamage(Damage);
         Vector3 oldPos = transform.position;
-        transform.DOPunchPosition((Vector3)GridMaster.instant.GridToWorldCentre(card.PosGrid) - oldPos, TimeAniAttack, 1, 0.2f).Play();
+        transform.DOPunchPosition((Vector3)GridMaster.Instance.GridToWorldCentre(card.PosGrid) - oldPos, TimeAniAttack, 1, 0.2f).Play();
         yield return new WaitForSeconds(TimeAttack);
     }
 

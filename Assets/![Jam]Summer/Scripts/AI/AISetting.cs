@@ -1,44 +1,22 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System;
 
 [CreateAssetMenu(menuName = "AISetting", fileName = "AISetting")]
 public class AISetting : ScriptableObject
 {
-    public float SaveMoneyBuild;
+    [Header("Basic Settings")]
+    public float SaveMoneyBuild = 0.5f;
     public CardList CardList;
-    public AIDifficulty Difficulty;
+    public AIDifficulty Difficulty = AIDifficulty.Normal;
     public AIKeepProportions KeepProportions;
 
-#if UNITY_EDITOR
-    // Метод для редактора, который заполняет CardsWeight на основе CardList.Entities
-    public void SyncCardWeights()
-    {
-        if (CardList == null || KeepProportions == null)
-        {
-            Debug.LogWarning("CardList or KeepProportions is not assigned!");
-            return;
-        }
+    [Header("AI Behaviors")]
+    public List<AIBehavior> Behaviors = new List<AIBehavior>();
 
-        KeepProportions.CardsWeight.Clear();
-
-        foreach (var entity in CardList.Entities)
-        {
-            if (entity == null) continue;
-
-            KeepProportions.CardsWeight.Add(new CardWeight
-            {
-                Name = entity.name,
-                Card = entity
-            });
-        }
-
-        EditorUtility.SetDirty(this); // Помечаем объект как изменённый
-    }
-#endif
+    [Header("Default Behavior")]
+    [Tooltip("Use default behavior when no conditions are met")]
+    public bool UseDefaultBehavior = true;
 }
 
 public enum AIDifficulty
@@ -46,11 +24,6 @@ public enum AIDifficulty
     Easy,
     Normal,
     Hard
-}
-[Serializable]
-public class AITasks
-{
-
 }
 
 [Serializable]

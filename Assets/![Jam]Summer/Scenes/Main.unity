@@ -188,9 +188,8 @@ MonoBehaviour:
   PosCastle: {x: 15, y: 3}
   LineFront: 13
   LineBack: 14
-  LineMaxBuild: 0
+  LineMaxBuild: 6
   Setting: {fileID: 11400000, guid: f86f24a80850ab046a4a6cf25c37e119, type: 2}
-  CountCard: 
   MoneyFromBuild: 0
   BowOnSword: 0
 --- !u!114 &4632351
@@ -206,13 +205,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardCastle: {fileID: 4774586526250846706, guid: 99daa1e3ac5690746ab78c42866f2758, type: 3}
-  Money: 100
+  Money: 0
   Team: 1
   PosCastle: {x: 1, y: 3}
   LineFront: 3
   LineBack: 2
   LineMaxBuild: 6
-  Cards: {fileID: 11400000, guid: 3fbafffe70761f648bb15fea4acfdc0a, type: 2}
+  Cards: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
 --- !u!1 &63214440
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class ControlMaster : MonoBehaviour
     public int LineMaxBuild;
 
     protected int IncomeStep;
-    protected int MaxY => GridMaster.instant.Size.y;
+    protected int MaxY => GridMaster.Instance.Size.y;
 
     public virtual void Init()
     {
@@ -35,7 +35,7 @@ public class ControlMaster : MonoBehaviour
     public virtual bool SpawnCard(Card card, int money)
     {
         if (card == null) throw new NullReferenceException("Card");
-        if (card.Price <= money)
+        if (card.Price <= money && card.Price <= Money)
         {
             if (card is CardEntity entity)
             {
@@ -49,7 +49,7 @@ public class ControlMaster : MonoBehaviour
             {
                 int posX = PosCastle.x;
                 int step;
-                for (step = 0; GridMaster.instant.GetCountTypeInSquare<CardBuild>(new(posX, 0), new(posX, GridMaster.instant.Size.y), Team) > 1 && step < LineMaxBuild; step++)
+                for (step = 0; GridMaster.Instance.GetCountTypeInSquare<CardBuild>(new(posX, 0), new(posX, GridMaster.Instance.Size.y), Team) > 1 && step < LineMaxBuild; step++)
                 {
                     posX += Team ? 1 : -1;
                 }
@@ -63,11 +63,11 @@ public class ControlMaster : MonoBehaviour
     }
     public bool SpawnCardToGrid(Card card, Vector2Int pos)
     {
-        if (!GridMaster.instant.TryGetAtPos(pos, out var _null))
+        if (!GridMaster.Instance.TryGetAtPos(pos, out var _null))
         {
             Card entity = Instantiate(card);
             entity.Init();
-            GridMaster.instant.Add(entity, pos);
+            GridMaster.Instance.Add(entity, pos);
             entity.SetPos(pos);
             entity.SetTeam(Team);
             return true;
@@ -81,7 +81,7 @@ public class ControlMaster : MonoBehaviour
         Vector2Int pos = new Vector2Int(line, 0);
         for (pos.y = 0; pos.y < MaxY; pos.y++)
         {
-            if (!GridMaster.instant.TryGetAtPos(pos, out var _null))
+            if (!GridMaster.Instance.TryGetAtPos(pos, out var _null))
             {
                 empty.Add(pos);
             }
