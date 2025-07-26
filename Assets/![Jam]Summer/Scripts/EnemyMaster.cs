@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
+using static UnityEngine.Rendering.GPUSort;
 
 public class EnemyMaster : ControlMaster
 {
-    protected int IncomeStep;
+    
     [SerializeField]
     protected float MoneyFromBuild;
     public float SaveMoneyBuild;
@@ -15,19 +16,13 @@ public class EnemyMaster : ControlMaster
     public override void Init()
     {
         base.Init();
-        IncomeStep = 0;
         MoneyFromBuild = 0;
     }
-    public override void GiveMoney(int count)
-    {
-        base.GiveMoney(count);
-        IncomeStep += count;
-    } 
-    public IEnumerator Step()
+    public override IEnumerator Step()
     {
         MoneyFromBuild += IncomeStep * SaveMoneyBuild;
-        CountBow = GridMaster.instant.GetCountType(Cards.Bow, Team);
-        CountSword = GridMaster.instant.GetCountType(Cards.Sword, Team);
+        CountBow = GridMaster.instant.GetCountType<CardBowman>(Team);
+        CountSword = GridMaster.instant.GetCountType<CardSwordsman>(Team);
         while (MoneyFromBuild > Cards.Build.Price)
         {
             if (SpawnCard(Cards.Build))

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class GridMaster : ObjectGridMono
@@ -31,12 +32,24 @@ public class GridMaster : ObjectGridMono
             yield return card.TurnEnd();
         }
     }
-    public int GetCountType(Card card, bool team)
+    protected override void SetPosObj(MonoBehaviour value, Vector2Int pos, bool res)
+    {
+        if (res && AutoPos)
+        {
+            Vector3 movePos = GridToWorldCentre(pos);
+            movePos.z = -pos.y;
+            if (Vector2.Distance(value.transform.position, movePos) < 3)
+                value.transform.DOLocalJump(movePos, 0.5f, 1, CardEntity.TimeMove).SetEase(Ease.Linear).Play();
+            else
+                value.transform.position = movePos;
+        }
+    }
+    public int GetCountType<TCard>(bool team) where TCard : Card
     {
         var select = from s in
                          from p in Grid.GetDictionary().Values
                          select p as Card
-                     where s.IsPlayer == team && s.gameObject.name.StartsWith(card.gameObject.name)
+                     where s is TCard && s.IsPlayer == team
                      select s;
         return select.Count();
     }

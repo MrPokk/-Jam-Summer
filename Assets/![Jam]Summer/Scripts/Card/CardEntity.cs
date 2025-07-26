@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CardEntity : Card
 {
-    public const float TimeMove = 0.1f;
-    public const float TimeAttack = 0.05f;
+    public const float TimeMove = 0.2f;
+    public const float TimeAttack = 0.1f;
+    public const float TimeAniAttack = 0.3f;
     public int MaxStep;
     public int Step;
     public int Damage;
@@ -61,7 +63,6 @@ public class CardEntity : Card
 
     private Vector2Int GetNextStepTowards(Vector2Int targetPos)
     {
-        // Сначала пробуем двигаться напрямую
         Vector2Int direction = NormalizedVec2Int(targetPos - _pos);
         Vector2Int straightMove = _pos + direction;
 
@@ -69,26 +70,17 @@ public class CardEntity : Card
         {
             return straightMove;
         }
-
-        // Если прямой путь заблокирован, ищем обходной путь
         List<Vector2Int> possibleMoves = new List<Vector2Int>();
-
-        // Проверяем все соседние клетки
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
-                if (x == 0 && y == 0) continue; // Пропускаем текущую позицию
-
+                if (x == 0 && y == 0) continue;
                 Vector2Int neighbor = new Vector2Int(_pos.x + x, _pos.y + y);
-
-                // Если клетка свободна и ближе к цели, чем текущая позиция
                 if (!GridMaster.instant.TryGetAtPos(neighbor, out var __null) && GridMaster.instant.Grid.CheckInSize(neighbor))
                 {
-                    // Предпочитаем движения, которые приближают к цели
                     float currentDist = Vector2Int.Distance(_pos, targetPos);
                     float newDist = Vector2Int.Distance(neighbor, targetPos);
-
                     if (newDist <= currentDist)
                     {
                         possibleMoves.Add(neighbor);
@@ -96,21 +88,19 @@ public class CardEntity : Card
                 }
             }
         }
-
-        // Если нашли возможные ходы, выбираем лучший (ближайший к цели)
         if (possibleMoves.Count > 0)
         {
             possibleMoves.Sort((a, b) =>
                 Vector2Int.Distance(a, targetPos).CompareTo(Vector2Int.Distance(b, targetPos)));
             return possibleMoves[0];
         }
-
-        // Если нет возможных ходов, остаемся на месте
         return _pos;
     }
     public IEnumerator Attack(Card card)
     {
         card.TakeDamage(Damage);
+        Vector3 oldPos = transform.position;
+        transform.DOPunchPosition((Vector3)GridMaster.instant.GridToWorldCentre(card.PosGrid) - oldPos, TimeAniAttack, 1, 0.2f).Play();
         yield return new WaitForSeconds(TimeAttack);
     }
 

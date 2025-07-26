@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,14 +15,21 @@ public class ControlMaster : MonoBehaviour
     public int LineBack;
     public int LineMaxBuild;
 
+    protected int IncomeStep;
     protected int MaxY => GridMaster.instant.Size.y;
+
     public virtual void Init()
     {
         if (!SpawnCardToGrid(Cards.Castle, PosCastle)) throw new Exception("Castle has not been created");
     }
+    public virtual IEnumerator Step()
+    {
+        yield break;
+    }
     public virtual void GiveMoney(int count)
     {
         Money += count;
+        IncomeStep += count;
     }
     public virtual bool SpawnCard(Card card) => SpawnCard(card, Money);
     public virtual bool SpawnCard(Card card, int money)

@@ -1,12 +1,10 @@
-﻿using BitterCMS.UnityIntegration.Utility;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CardCastle : CardBuild
 {
     public override void Dead()
     {
         base.Dead();
-        CoroutineUtility.StopAll();
         if (IsPlayer)
         {
             Debug.Log("Enemy Win");

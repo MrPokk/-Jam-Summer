@@ -3,7 +3,7 @@ using Utility.Grid;
 public class ObjectGridMono : GridMonoBehaviour<MonoBehaviour>
 {
     public bool AutoPos = true;
-    private void SetPosObj(MonoBehaviour value, Vector2Int pos, bool res)
+    protected virtual void SetPosObj(MonoBehaviour value, Vector2Int pos, bool res)
     {
         if (res && AutoPos)
         {
