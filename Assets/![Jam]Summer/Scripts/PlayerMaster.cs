@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerMaster : ControlMaster
 {
     public event Action<int> MoneyChangeUI;
+    public CardList Cards;
 
     public override IEnumerator Step()
     {
@@ -11,25 +12,17 @@ public class PlayerMaster : ControlMaster
         MoneyChangeUI?.Invoke(Money);
         yield break;
     }
-    public bool SpawnBowman()
+    public bool SpawnEntity(int index)
     {
-        bool res = SpawnCard(Cards.Bow);
+        bool res = SpawnCard(Cards.Entities[index]);
         if (res)
             MoneyChangeUI?.Invoke(Money);
         return res;
     }
 
-    public bool SpawnSwordsman()
+    public bool SpawnBuild(int index)
     {
-        bool res = SpawnCard(Cards.Sword);
-        if (res)
-            MoneyChangeUI?.Invoke(Money);
-        return res;
-    }
-
-    public bool SpawnBuild()
-    {
-        bool res = SpawnCard(Cards.Build);
+        bool res = SpawnCard(Cards.Builds[index]);
         if (res)
             MoneyChangeUI?.Invoke(Money);
         return res;

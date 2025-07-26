@@ -1,15 +1,16 @@
-using BitterCMS.UnityIntegration;
+﻿using BitterCMS.UnityIntegration;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 
 public class UIRoot : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Canvas _canvasRoot;
+    [SerializeField] private Canvas _canvasRoot;    
     [SerializeField] private HUD _hudRoot;
-    [SerializeField] private TMP_Text _priceHouseText;
+    [SerializeField] private TMP_Text _priceBuildText;
     [SerializeField] private TMP_Text _priceBowmanText;
     [SerializeField] private TMP_Text _priceSwordsmanText;
     [SerializeField] private TMP_Text _moneyText;
@@ -58,9 +59,9 @@ public class UIRoot : MonoBehaviour
 
     private void UpdatePrices()
     {
-        _priceHouseText.text = _root.Player.Cards.Build.Price.ToString();
-        _priceBowmanText.text = _root.Player.Cards.Bow.Price.ToString();
-        _priceSwordsmanText.text = _root.Player.Cards.Sword.Price.ToString();
+        _priceBuildText.text = _root.Player.Cards.Builds.FirstOrDefault(e => e is CardBuild).Price.ToString();
+        _priceBowmanText.text = _root.Player.Cards.Entities.FirstOrDefault(e => e is CardBowman).Price.ToString();
+        _priceSwordsmanText.text = _root.Player.Cards.Entities.FirstOrDefault(e => e is CardSwordsman).Price.ToString();
     }
 
     public void ToggleCanvas()
@@ -74,9 +75,8 @@ public class UIRoot : MonoBehaviour
         var difference = newMoney - previousMoney;
 
 
-        Debug.Log($"{difference}");
-
         _moneyText.text = newMoney.ToString();
+
         PlayMoneyChangeAnimation(difference);
     }
 
@@ -116,9 +116,8 @@ public class UIRoot : MonoBehaviour
         sequence.Play();
     }
 
-    public void SpawnHouse() => _root.Player.SpawnBuild();
-    public void SpawnBowman() => _root.Player.SpawnBowman();
-    public void SpawnSwordsman() => _root.Player.SpawnSwordsman();
+    public void SpawnHouseUI(int index) => _root.Player.SpawnBuild(index);
+    public void SpawnEntityUI(int index) => _root.Player.SpawnEntity(index);
 
     private void OnDestroy()
     {

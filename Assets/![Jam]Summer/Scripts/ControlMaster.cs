@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class ControlMaster : MonoBehaviour
 {
-    public CardList Cards;
+    public Card CardCastle;
     public int Money;
     public bool Team;
 
@@ -20,7 +20,7 @@ public class ControlMaster : MonoBehaviour
 
     public virtual void Init()
     {
-        if (!SpawnCardToGrid(Cards.Castle, PosCastle)) throw new Exception("Castle has not been created");
+        if (!SpawnCardToGrid(CardCastle, PosCastle)) throw new Exception("Castle has not been created");
     }
     public virtual IEnumerator Step()
     {

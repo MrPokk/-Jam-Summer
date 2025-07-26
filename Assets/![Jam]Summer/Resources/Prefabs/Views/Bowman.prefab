@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5596049604208301284, guid: 99393e37be03a9a6c86fcee47a80cddf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -111,6 +111,7 @@ MonoBehaviour:
   Step: 2
   Damage: 2
   AttackDist: 2.8
+  IsFront: 0
 --- !u!114 &4562153114118918489
 MonoBehaviour:
   m_ObjectHideFlags: 0

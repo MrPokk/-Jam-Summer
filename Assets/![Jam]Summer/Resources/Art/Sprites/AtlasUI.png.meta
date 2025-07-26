@@ -116,9 +116,9 @@ TextureImporter:
       name: AtlasUI_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 47
         y: 96
-        width: 120
+        width: 141
         height: 29
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -138,7 +138,7 @@ TextureImporter:
       name: AtlasUI_1
       rect:
         serializedVersion: 2
-        x: 15
+        x: 79
         y: 74
         width: 18
         height: 18
@@ -160,7 +160,7 @@ TextureImporter:
       name: AtlasUI_2
       rect:
         serializedVersion: 2
-        x: 37
+        x: 101
         y: 77
         width: 14
         height: 12
@@ -182,7 +182,7 @@ TextureImporter:
       name: AtlasUI_3
       rect:
         serializedVersion: 2
-        x: 52
+        x: 116
         y: 77
         width: 12
         height: 12
@@ -204,7 +204,7 @@ TextureImporter:
       name: AtlasUI_4
       rect:
         serializedVersion: 2
-        x: 66
+        x: 130
         y: 77
         width: 12
         height: 12
@@ -226,12 +226,12 @@ TextureImporter:
       name: AtlasUI_5
       rect:
         serializedVersion: 2
-        x: 98
+        x: 162
         y: 81
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -240,6 +240,50 @@ TextureImporter:
       bones: []
       spriteID: 3311dc283bd91cb7293e9fabdd870206
       internalID: 802755539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AtlasUI_6
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 62
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9bb26449be374d518545902e6aa755f
+      internalID: 401759588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AtlasUI_7
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 61
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11148b4a9c11e60c88dfd5a47fa21120
+      internalID: -294178197
       vertices: []
       indices: 
       edges: []
@@ -264,6 +308,8 @@ TextureImporter:
       AtlasUI_3: 2029772386
       AtlasUI_4: 613563473
       AtlasUI_5: 802755539
+      AtlasUI_6: 401759588
+      AtlasUI_7: -294178197
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
