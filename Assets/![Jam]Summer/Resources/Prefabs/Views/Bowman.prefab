@@ -110,7 +110,8 @@ MonoBehaviour:
   MaxStep: 2
   Step: 2
   Damage: 2
-  AttackDist: 2.8
+  AttackDist: 3.8
+  IsFront: 0
 --- !u!114 &4562153114118918489
 MonoBehaviour:
   m_ObjectHideFlags: 0

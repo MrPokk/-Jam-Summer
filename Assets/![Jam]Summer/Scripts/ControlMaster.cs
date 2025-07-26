@@ -35,7 +35,7 @@ public class ControlMaster : MonoBehaviour
     public virtual bool SpawnCard(Card card, int money)
     {
         if (card == null) throw new NullReferenceException("Card");
-        if (card.Price <= money)
+        if (card.Price <= money && card.Price <= Money)
         {
             if (card is CardEntity entity)
             {

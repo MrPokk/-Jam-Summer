@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85c76f1e363090408440f2b4ffba8fc, type: 3}
+  m_Name: AIEasy
+  m_EditorClassIdentifier: 
+  SaveMoneyBuild: 0.4
+  CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
+  Difficulty: 0
+  KeepProportions:
+    CardsWeight: []
+  Behaviors:
+  - Conditions:
+    - rid: 4547710433829847148
+    Actions:
+    - rid: 4547710433829847149
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710433829847150
+    Actions:
+    - rid: 4547710433829847151
+    - rid: 4547710433829847152
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710433829847153
+    - rid: 4547710433829847157
+    Actions:
+    - rid: 4547710433829847154
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710433829847155
+    - rid: 4547710433829847158
+    Actions:
+    - rid: 4547710433829847156
+    ExitWhenExecuting: 0
+  UseDefaultBehavior: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 4547710433829847148
+      type: {class: HasMoneyBuildCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Count: 1
+        Card: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
+    - rid: 4547710433829847149
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
+        UseBuildMoney: 1
+    - rid: 4547710433829847150
+      type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Count: 2
+        Card: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+        UseBuildMoney: 0
+    - rid: 4547710433829847151
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+        UseBuildMoney: 0
+    - rid: 4547710433829847152
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+        UseBuildMoney: 0
+    - rid: 4547710433829847153
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        CountMin: 1
+        Card: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
+        IsEnemy: 1
+    - rid: 4547710433829847154
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+        UseBuildMoney: 0
+    - rid: 4547710433829847155
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        CountMin: 1
+        Card: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+        IsEnemy: 1
+    - rid: 4547710433829847156
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
+        UseBuildMoney: 0
+    - rid: 4547710433829847157
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        CountMin: 1
+        Card: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+        IsEnemy: 0
+    - rid: 4547710433829847158
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        CountMin: 1
+        Card: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
+        IsEnemy: 0
