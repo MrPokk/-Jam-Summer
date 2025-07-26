@@ -182,18 +182,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f672c941adcfe464eaea5d430f1106f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cards: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
+  CardCastle: {fileID: 4774586526250846706, guid: 99daa1e3ac5690746ab78c42866f2758, type: 3}
   Money: 0
   Team: 0
   PosCastle: {x: 16, y: 3}
   LineFront: 13
   LineBack: 14
   LineMaxBuild: 0
+  Setting: {fileID: 11400000, guid: f86f24a80850ab046a4a6cf25c37e119, type: 2}
+  CountCard: 
   MoneyFromBuild: 0
-  SaveMoneyBuild: 0.3
   BowOnSword: 0
-  CountBow: 0
-  CountSword: 0
 --- !u!114 &4632351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,13 +205,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dddf3d3d4d4bda64c896e4668200f135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cards: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
+  CardCastle: {fileID: 4774586526250846706, guid: 99daa1e3ac5690746ab78c42866f2758, type: 3}
   Money: 100
   Team: 1
   PosCastle: {x: 0, y: 3}
   LineFront: 3
   LineBack: 2
   LineMaxBuild: 6
+  Cards: {fileID: 11400000, guid: 3fbafffe70761f648bb15fea4acfdc0a, type: 2}
 --- !u!1 &96117909
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
         m_MethodName: SpawnHouseUI
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -763,8 +763,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
-        m_MethodName: SpawnBowmanUI
-        m_Mode: 1
+        m_MethodName: SpawnEntityUI
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2080,12 +2080,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
-        m_MethodName: SpawnSwordsmanUI
-        m_Mode: 1
+        m_MethodName: SpawnEntityUI
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

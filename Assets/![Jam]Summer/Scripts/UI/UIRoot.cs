@@ -1,4 +1,4 @@
-using BitterCMS.UnityIntegration;
+﻿using BitterCMS.UnityIntegration;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,9 +34,9 @@ public class UIRoot : MonoBehaviour
 
     private void SetPrises()
     {
-        _priseHouseTexts.text = _root.Player.Cards.Build.Price.ToString();
-        _priseBowmanTexts.text = _root.Player.Cards.Bow.Price.ToString();
-        _priseSwordsmanTexts.text = _root.Player.Cards.Sword.Price.ToString();
+        //_priseHouseTexts.text = _root.Player.Cards.Build.Price.ToString();
+        //_priseBowmanTexts.text = _root.Player.Cards.Bow.Price.ToString();
+        //_priseSwordsmanTexts.text = _root.Player.Cards.Sword.Price.ToString();
     }
 
     private void SetChangesMoney()
@@ -56,19 +56,14 @@ public class UIRoot : MonoBehaviour
         AnimationMoneyChangeUI(difference);
     }
 
-    public void SpawnHouseUI()
+    public void SpawnHouseUI(int index)
     {
-        _root.Player.SpawnBuild();
+        _root.Player.SpawnBuild(index);
     }
 
-    public void SpawnBowmanUI()
+    public void SpawnEntityUI(int index)
     {
-        _root.Player.SpawnBowman();
-    }
-
-    public void SpawnSwordsmanUI()
-    {
-        _root.Player.SpawnSwordsman();
+        _root.Player.SpawnEntity(index);
     }
 
     private void OnDestroy()

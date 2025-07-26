@@ -1,26 +1,34 @@
-﻿using System.Collections;
-using System.Security.Cryptography;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
-using static UnityEngine.Rendering.GPUSort;
 
 public class EnemyMaster : ControlMaster
 {
-    
     [SerializeField]
-    protected float MoneyFromBuild;
-    public float SaveMoneyBuild;
+    protected AISetting Setting;
+    [SerializeField]
+    protected int[] CountCard;
+    public float MoneyFromBuild;
     public float BowOnSword;
-
-    public int CountBow;
-    public int CountSword;
     public override void Init()
     {
         base.Init();
         MoneyFromBuild = 0;
+        CountCard = new int[Setting.CardList.Entities.Count];
     }
     public override IEnumerator Step()
     {
-        MoneyFromBuild += IncomeStep * SaveMoneyBuild;
+        MoneyFromBuild += IncomeStep * Setting.SaveMoneyBuild;
+        for (int i =  0; i < Setting.CardList.Entities.Count; i++)
+        {
+            CountCard[i] = GridMaster.instant.GetCountType(Team, Setting.CardList.Entities[i]);
+        }
+        int select = Setting.KeepProportions.GetIndex(Setting.CardList, CountCard);
+        SpawnCard(Setting.CardList.Entities[select], (int)(Money - MoneyFromBuild));
+        /*
         CountBow = GridMaster.instant.GetCountType<CardBowman>(Team);
         CountSword = GridMaster.instant.GetCountType<CardSwordsman>(Team);
         while (MoneyFromBuild > Cards.Build.Price)
@@ -47,6 +55,7 @@ public class EnemyMaster : ControlMaster
             }
             while (res);
         }
+        */
         IncomeStep = 0;
         yield break;
     }
@@ -55,12 +64,10 @@ public class EnemyMaster : ControlMaster
         bool res = base.SpawnCard(card, money);
         if (res)
         {
-            if (card is CardSwordsman) CountSword++;
-            else if (card is CardBowman) CountBow++;
-            else if (card is CardBuild) MoneyFromBuild -= card.Price;
+            if (card is CardBuild) MoneyFromBuild -= card.Price;
+            if (card is CardEntity);
             else throw new System.Exception("Not standard card");
         }
         return res;
     }
-    protected bool SpawnPrioritySword() => CountSword / (CountSword + CountBow + 1.0f) > BowOnSword;
 }

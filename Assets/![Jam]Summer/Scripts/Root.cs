@@ -38,7 +38,7 @@ public class Root : RootMonoBehavior
 
     private IEnumerator Loop()
     {
-        while (Grid.GetCountType<CardCastle>(false) + Grid.GetCountType<CardCastle>(true) == 2)
+        while (Grid.GetCountType<CardCastle>() == 2)
         {
             yield return Player.Step();
             yield return Enemy.Step();

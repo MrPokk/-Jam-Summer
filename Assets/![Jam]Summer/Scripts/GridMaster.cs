@@ -44,12 +44,21 @@ public class GridMaster : ObjectGridMono
                 value.transform.position = movePos;
         }
     }
-    public int GetCountType<TCard>(bool team) where TCard : Card
+    public int GetCountType<TCard>() where TCard : Card
     {
         var select = from s in
                          from p in Grid.GetDictionary().Values
                          select p as Card
-                     where s is TCard && s.IsPlayer == team
+                     where s is TCard
+                     select s;
+        return select.Count();
+    }
+    public int GetCountType(bool team, Card card)
+    {
+        var select = from s in
+                         from p in Grid.GetDictionary().Values
+                         select p as Card
+                     where s.name.StartsWith(card.name) && s.IsPlayer == team
                      select s;
         return select.Count();
     }
