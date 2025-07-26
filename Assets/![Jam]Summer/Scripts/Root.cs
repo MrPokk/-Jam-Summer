@@ -8,8 +8,8 @@ public class Root : RootMonoBehavior
 {
     public GridMaster Grid;
     public CardList CardList;
-    public static PlayerMaster Player;
-    public static EnemyMaster Enemy;
+    public PlayerMaster Player;
+    public EnemyMaster Enemy;
 
     protected override void GlobalStart()
     {
@@ -24,7 +24,7 @@ public class Root : RootMonoBehavior
     }
     private IEnumerator Loop()
     {
-        yield return Player.Step();
+        yield return Player;
         yield return Enemy.Step();
         yield return Grid.Step();
         yield return Loop();

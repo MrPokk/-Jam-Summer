@@ -1,13 +1,15 @@
 ﻿using System.Collections;
+using BitterCMS.UnityIntegration;
 
 public class CardBuild : Card
 {
+
+
     public int Income;
     public int HealingHp;
     public override IEnumerator TurnEnd()
     {
-        if (IsPlayer) Root.Player.GiveMoney(Income);
-        else Root.Enemy.GiveMoney(Income);
+        GlobalState.GetRoot<Root>().Enemy.GiveMoney(Income);
         yield break;
     }
 
