@@ -107,7 +107,7 @@ MonoBehaviour:
   _pos: {x: 0, y: 0}
   _isPlayer: 0
   Priority: -10
-  Income: 3
+  Income: 0
   HealingHp: 0
 --- !u!114 &3071556554145221298
 MonoBehaviour:

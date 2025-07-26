@@ -66,7 +66,7 @@ public class RadialDissolveController : MonoBehaviour
 
     public Coroutine StartDissolveAnimation(float duration = -1f)
     {
-        if (_material == null && !InitializeMaterial()) 
+        if (_material == null && !InitializeMaterial())
             return null;
 
         StopCurrentAnimation();

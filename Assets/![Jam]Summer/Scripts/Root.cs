@@ -16,8 +16,6 @@ public class Root : RootMonoBehavior
 
     protected override void GlobalStart()
     {
-        _uIRoot.CanvasRoot.gameObject.SetActive(false);
-
         CoroutineUtility.Run(LoadGame());
     }
     private IEnumerator LoadGame()
@@ -29,12 +27,21 @@ public class Root : RootMonoBehavior
         Player.Init();
         Enemy.Init();
 
-        yield return _uIRoot.HudRoot.RadialDissolveController.StartDissolveAnimation(4f);
-        _uIRoot.CanvasRoot.gameObject.SetActive(true);
+        _uIRoot.InitializeUI();
+
+        yield return LoadAnimation(4f);
+        _uIRoot.ToggleCanvas();
 
         CoroutineUtility.Run(Loop());
         yield break;
     }
+
+    private Coroutine LoadAnimation(float duration = -1f)
+    {
+        _uIRoot.HudRoot.RadialDissolveController.gameObject.SetActive(true);
+        return _uIRoot.HudRoot.RadialDissolveController.StartDissolveAnimation(duration);
+    }
+
 
     private IEnumerator Loop()
     {

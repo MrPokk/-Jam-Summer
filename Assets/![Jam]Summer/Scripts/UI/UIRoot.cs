@@ -1,112 +1,127 @@
 using BitterCMS.UnityIntegration;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 
 public class UIRoot : MonoBehaviour
 {
-    private Root _root = null;
+    [Header("References")]
+    [SerializeField] private Canvas _canvasRoot;
+    [SerializeField] private HUD _hudRoot;
+    [SerializeField] private TMP_Text _priceHouseText;
+    [SerializeField] private TMP_Text _priceBowmanText;
+    [SerializeField] private TMP_Text _priceSwordsmanText;
+    [SerializeField] private TMP_Text _moneyText;
+    [SerializeField] private TextPixelOutline _changesMoneyContainer;
 
-    [field: SerializeField] public Canvas CanvasRoot { get; private set; }
-    [field: SerializeField] public HUD HudRoot { get; private set; }
-
+    private Root _root;
     private Vector3 _changesTextInitialPosition;
     private Vector3 _changesTextInitialScale;
 
-    [SerializeField] private TMP_Text _priseHouseTexts;
-    [SerializeField] private TMP_Text _priseBowmanTexts;
-    [SerializeField] private TMP_Text _priseSwordsmanTexts;
-    [SerializeField] private TMP_Text _moneyText;
-    [SerializeField] private TMP_Text _changesMoneyText;
+    public Canvas CanvasRoot => _canvasRoot;
+    public HUD HudRoot => _hudRoot;
 
-    private void Start()
+    public void InitializeUI()
     {
+        _canvasRoot.gameObject.SetActive(false);
+        _hudRoot.gameObject.SetActive(true);
+
         _root = GlobalState.GetRoot<Root>();
-        _root.Player.MoneyChangeUI += MoneyChangeUI;
         _moneyText.text = _root.Player.Money.ToString();
 
-        SetChangesMoney();
+        _changesTextInitialPosition = _changesMoneyContainer.GetPosition();
+        _changesTextInitialScale = _changesMoneyContainer.GetScale();
 
-        SetPrises();
+        SetupChangeMoneyText();
+        UpdatePrices();
+        SubscribeToEvents();
     }
 
-    private void SetPrises()
+    private void SubscribeToEvents()
     {
-        _priseHouseTexts.text = _root.Player.Cards.Build.Price.ToString();
-        _priseBowmanTexts.text = _root.Player.Cards.Bow.Price.ToString();
-        _priseSwordsmanTexts.text = _root.Player.Cards.Sword.Price.ToString();
+        _root.Player.MoneyChangeUI += OnMoneyChanged;
     }
 
-    private void SetChangesMoney()
+    private void UnsubscribeFromEvents()
     {
-        _changesMoneyText.alpha = 0f;
-        _changesTextInitialPosition = _changesMoneyText.transform.localPosition;
-        _changesTextInitialScale = _changesMoneyText.transform.localScale;
+        if (_root != null && _root.Player != null)
+        {
+            _root.Player.MoneyChangeUI -= OnMoneyChanged;
+        }
     }
 
-    public void MoneyChangeUI(int money)
+    private void SetupChangeMoneyText()
+    {
+        _changesMoneyContainer.SetAlpha(0f);
+    }
+
+    private void UpdatePrices()
+    {
+        _priceHouseText.text = _root.Player.Cards.Build.Price.ToString();
+        _priceBowmanText.text = _root.Player.Cards.Bow.Price.ToString();
+        _priceSwordsmanText.text = _root.Player.Cards.Sword.Price.ToString();
+    }
+
+    public void ToggleCanvas()
+    {
+        _canvasRoot.gameObject.SetActive(!_canvasRoot.gameObject.activeSelf);
+    }
+
+    private void OnMoneyChanged(int newMoney)
     {
         var previousMoney = int.Parse(_moneyText.text);
-        var difference = money - previousMoney;
+        var difference = newMoney - previousMoney;
 
-        _moneyText.text = money.ToString();
 
-        AnimationMoneyChangeUI(difference);
+        Debug.Log($"{difference}");
+
+        _moneyText.text = newMoney.ToString();
+        PlayMoneyChangeAnimation(difference);
     }
 
-    public void SpawnHouseUI()
+    private void PlayMoneyChangeAnimation(int difference)
     {
-        _root.Player.SpawnBuild();
+        if (difference == 0) return;
+
+        var transform = _changesMoneyContainer.GetTransform();
+
+        transform.DOKill();
+
+        _changesMoneyContainer.SetAll(
+            textColor: difference > 0 ? Color.green : Color.red,
+            outlineColor: Color.black,
+            alpha: 1f,
+            text: $"{(difference > 0 ? "+" : "")}{difference}",
+            scale: Vector3.zero,
+            position: _changesTextInitialPosition
+        );
+
+        var sequence = DOTween.Sequence();
+
+        sequence.Append(transform.DOScale(_changesTextInitialScale * 1.2f, 0.2f).SetEase(Ease.OutBack));
+        sequence.Append(transform.DOScale(_changesTextInitialScale, 0.1f));
+
+        sequence.Append(transform.DOLocalMoveY(_changesTextInitialPosition.y + 50f, 0.5f)).OnUpdate(() =>
+        {
+            _changesMoneyContainer.SetAlpha(1f - (transform.localPosition.y - _changesTextInitialPosition.y) / 50f);
+        });
+
+        sequence.OnComplete(() =>
+        {
+            transform.localPosition = _changesTextInitialPosition;
+            _changesMoneyContainer.SetAlpha(0f);
+        });
+
+        sequence.Play();
     }
 
-    public void SpawnBowmanUI()
-    {
-        _root.Player.SpawnBowman();
-    }
-
-    public void SpawnSwordsmanUI()
-    {
-        _root.Player.SpawnSwordsman();
-    }
+    public void SpawnHouse() => _root.Player.SpawnBuild();
+    public void SpawnBowman() => _root.Player.SpawnBowman();
+    public void SpawnSwordsman() => _root.Player.SpawnSwordsman();
 
     private void OnDestroy()
     {
-        _root.Player.MoneyChangeUI -= MoneyChangeUI;
-    }
-
-    private void AnimationMoneyChangeUI(in int difference = 0)
-    {
-
-        if (_changesMoneyText != null)
-        {
-            _changesMoneyText.DOKill();
-            _changesMoneyText.transform.DOKill();
-
-            _changesMoneyText.text = (difference > 0 ? "+" : "") + difference.ToString();
-            _changesMoneyText.color = difference >= 0 ? Color.green : Color.red;
-            _changesMoneyText.alpha = 1f;
-            _changesMoneyText.transform.localPosition = _changesTextInitialPosition;
-            _changesMoneyText.transform.localScale = _changesTextInitialScale;
-
-            _changesMoneyText.transform.DOLocalMoveY(_changesTextInitialPosition.y + 50f, 1f)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() =>
-                {
-                    _changesMoneyText.transform.localPosition = _changesTextInitialPosition;
-                }).Play();
-
-            _changesMoneyText.DOFade(0f, 1f)
-                .SetEase(Ease.InQuad)
-                .OnComplete(() => _changesMoneyText.alpha = 0f).Play();
-
-            _changesMoneyText.transform.DOScale(_changesTextInitialScale * 0.5f, 1f)
-                .SetEase(Ease.InQuad)
-                .OnComplete(() =>
-                {
-                    _changesMoneyText.transform.localScale = _changesTextInitialScale;
-                }).Play();
-        }
+        UnsubscribeFromEvents();
     }
 }

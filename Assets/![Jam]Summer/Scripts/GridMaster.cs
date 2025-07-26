@@ -19,8 +19,8 @@ public class GridMaster : ObjectGridMono
     {
         cards = from s in
                     from p in Grid.GetDictionary().Values
-                    select p as Card 
-                orderby s.Priority descending, s.IsPlayer  
+                    select p as Card
+                orderby s.Priority descending, s.IsPlayer
                 select s;
         foreach (var card in cards)
         {
@@ -58,6 +58,10 @@ public class GridMaster : ObjectGridMono
         enemy = null;
         var enemies = from p in cards where p.IsPlayer == team select p;
         minDistance = float.MaxValue;
+
+        if (!enemies.Any() || enemies == null)
+            return false;
+            
         foreach (var select in enemies)
         {
             float dist = Vector2Int.Distance(select.PosGrid, pos);
