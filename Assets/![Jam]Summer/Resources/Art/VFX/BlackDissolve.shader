@@ -1,10 +1,11 @@
-Shader "Custom/RadialBlackDissolve"
+Shader "Custom/PixelRadialBlackDissolve"
 {
     Properties
     {
         _DissolveAmount ("Dissolve Amount", Range(0, 1)) = 0
         _NoiseScale ("Noise Scale", Float) = 10
         _NoiseIntensity ("Noise Intensity", Range(0, 1)) = 0.2
+        _PixelSize ("Pixel Size", Int) = 10
     }
 
     SubShader
@@ -38,6 +39,7 @@ Shader "Custom/RadialBlackDissolve"
             float _DissolveAmount;
             float _NoiseScale;
             float _NoiseIntensity;
+            int _PixelSize;
 
             v2f vert (appdata v)
             {
@@ -45,26 +47,28 @@ Shader "Custom/RadialBlackDissolve"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-                o.objectPos = v.vertex.xyz; // Позиция в локальном пространстве объекта
+                o.objectPos = v.vertex.xyz;
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // Расстояние от центра объекта (в локальных координатах)
-                float distanceFromCenter = length(i.objectPos);
-                // Нормализуем расстояние (предполагаем, что объект примерно 1 единицу в размере)
-                distanceFromCenter = saturate(distanceFromCenter * 2);
+                // Пикселизация координат
+                float2 pixelUV = floor(i.uv * _PixelSize) / _PixelSize;
                 
-                // Генерация шума
-                float3 noiseCoord = i.worldPos * _NoiseScale;
+                // Радиальное расстояние (на основе пикселизованных UV)
+                float2 center = float2(0.5, 0.5);
+                float distanceFromCenter = distance(pixelUV, center);
+                
+                // Генерация шума на основе пикселизованных координат
+                float3 noiseCoord = float3(pixelUV * _NoiseScale, _Time.y);
                 float noise = snoise(noiseCoord) * 0.5 + 0.5;
                 
-                // Комбинируем радиальное растворение с шумом
+                // Комбинируем эффекты
                 float dissolve = distanceFromCenter + (noise * _NoiseIntensity);
                 
-                // Основная логика растворения
-                clip(dissolve - _DissolveAmount * 2); // Умножаем на 2 для полного диапазона
+                // Применяем растворение с пиксельным эффектом
+                clip(dissolve - _DissolveAmount * 2);
                 
                 // Чёрный цвет
                 return fixed4(0, 0, 0, 1);

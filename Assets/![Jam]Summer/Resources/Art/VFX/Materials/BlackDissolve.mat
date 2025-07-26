@@ -46,6 +46,7 @@ Material:
     - _EnableExternalAlpha: 0
     - _NoiseIntensity: 0.2
     - _NoiseScale: 1
+    - _PixelSize: 64
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

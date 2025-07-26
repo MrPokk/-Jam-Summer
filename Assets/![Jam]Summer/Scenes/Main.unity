@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c891e87f5bd865fa14129976926d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uIRoot: {fileID: 299621084}
   Grid: {fileID: 935691424}
   CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
   Player: {fileID: 4632351}
@@ -856,6 +857,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab7f83810babaf88912363dc18b4cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CanvasRoot>k__BackingField: {fileID: 2076466637}
+  <HudRoot>k__BackingField: {fileID: 1867203855}
+  _priseHouseTexts: {fileID: 1146704014}
+  _priseBowmanTexts: {fileID: 1892565198}
+  _priseSwordsmanTexts: {fileID: 758636194}
   _moneyText: {fileID: 1833217870}
   _changesMoneyText: {fileID: 135105766}
 --- !u!1 &350134183
@@ -1165,6 +1171,7 @@ GameObject:
   - component: {fileID: 711566430}
   - component: {fileID: 711566431}
   - component: {fileID: 711566432}
+  - component: {fileID: 711566433}
   m_Layer: 0
   m_Name: BackgroundLoad
   m_TagString: Untagged
@@ -1254,6 +1261,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ddf839656f57b0fad7fc7de3afd1db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &711566433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711566429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42409c24af0ed2f04851f14c514970b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveAmount: 0
+  dissolveSpeed: 0.5
+  noiseScale: 1
+  noiseIntensity: 0.2
+  playOnStart: 0
+  loopAnimation: 0
+  dissolveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &758636192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: NULL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f85ec640c91d0a74dada480a9374b778, type: 2}
   m_sharedMaterial: {fileID: 1834464631828411329, guid: f85ec640c91d0a74dada480a9374b778, type: 2}
@@ -1640,7 +1689,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: NULL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f85ec640c91d0a74dada480a9374b778, type: 2}
   m_sharedMaterial: {fileID: 1834464631828411329, guid: f85ec640c91d0a74dada480a9374b778, type: 2}
@@ -2376,13 +2425,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1867203854}
+  - component: {fileID: 1867203855}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1867203854
 Transform:
   m_ObjectHideFlags: 0
@@ -2399,6 +2449,19 @@ Transform:
   - {fileID: 711566430}
   m_Father: {fileID: 299621083}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1867203855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867203853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4596f5340820c3ec39fcbcecce273ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RadialDissolveController>k__BackingField: {fileID: 711566433}
 --- !u!1 &1892565196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,7 +2519,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: NULL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f85ec640c91d0a74dada480a9374b778, type: 2}
   m_sharedMaterial: {fileID: 1834464631828411329, guid: f85ec640c91d0a74dada480a9374b778, type: 2}
