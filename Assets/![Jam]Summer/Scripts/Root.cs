@@ -5,6 +5,7 @@ using BitterCMS.Utility.Interfaces;
 using System.Linq;
 using UnityEngine;
 using System;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Root : RootMonoBehavior
 {
@@ -81,10 +82,55 @@ public class Root : RootMonoBehavior
         UIRoot.ToggleCanvas();
 
         _roundCurrent++;
+        if (_roundCurrent == AISettingsSetups.Count)
+        {
+            yield return EndGame();
+            yield break;
+        }
+        LoadBattleEnemy(_roundCurrent);
+        yield break;
+    }
+
+    public void LoadLastEnemy()
+    {
+        _roundCurrent--;
+        if (_roundCurrent < 0)
+        {
+            _roundCurrent = 0;
+        }
+        CoroutineUtility.Run(SwapEnemy(_roundCurrent));
+        return;
+    }
+    public void LoadNextEnemy()
+    {
+        _roundCurrent++;
+        if (_roundCurrent >= AISettingsSetups.Count)
+        {
+            _roundCurrent = AISettingsSetups.Count - 1;
+        }
+        CoroutineUtility.Run(SwapEnemy(_roundCurrent));
+        return;
+    }
+    public IEnumerator SwapEnemy(int index)
+    {
+        yield return LoadAnimationEndRound(3f);
+        UIRoot.ToggleCanvas();
+        LoadBattleEnemy(index);
+        yield break;
+    }
+
+    public void RestartBattle() => LoadBattleEnemy(_roundCurrent);
+    private void LoadBattleEnemy(int index)
+    {
+        _roundCurrent = index;
         var currentSetupRound = AISettingsSetups[_roundCurrent];
+        Grid.Clear();
+        Player.Init();
         Enemy.Init(currentSetupRound);
 
-        yield return LoadAnimationRunRound(3f);
+        Player.Money = 0;
+        Enemy.Money = 0;
+        CoroutineUtility.Run(PreLoadRound());
     }
 
     public IEnumerator Lose()
@@ -93,6 +139,11 @@ public class Root : RootMonoBehavior
         yield return LoadAnimationEndRound(4f);
         UIRoot.ShowLoseCanvas();
 
+        yield break;
+    }
+
+    public IEnumerator EndGame()
+    {
         yield break;
     }
 }

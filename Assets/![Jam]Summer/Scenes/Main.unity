@@ -154,8 +154,11 @@ MonoBehaviour:
   Grid: {fileID: 935691424}
   CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
   <AISettingsSetups>k__BackingField:
-  - {fileID: 11400000, guid: f86f24a80850ab046a4a6cf25c37e119, type: 2}
+  - {fileID: 11400000, guid: 66160296de2ccdf42a19efc4f5e8df49, type: 2}
+  - {fileID: 11400000, guid: ff12bfd5504e6964e8602fe857c9d4fe, type: 2}
   - {fileID: 11400000, guid: aafdf805354b57d47bf3948ec9e16122, type: 2}
+  - {fileID: 11400000, guid: f86f24a80850ab046a4a6cf25c37e119, type: 2}
+  - {fileID: 11400000, guid: 27781c2976ca28b41a10c11bc89ef675, type: 2}
   Player: {fileID: 4632351}
   Enemy: {fileID: 4632350}
 --- !u!4 &4632349
@@ -3685,7 +3688,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 17.777779, y: 10, z: 1}
+  m_LocalScale: {x: 21.588234, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1867203854}
@@ -5156,7 +5159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1353459596
 RectTransform:
   m_ObjectHideFlags: 0

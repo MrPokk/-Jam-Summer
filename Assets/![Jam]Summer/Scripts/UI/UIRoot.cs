@@ -125,7 +125,7 @@ public class UIRoot : MonoBehaviour
     public void ShowLoseCanvas() => _uILoseCanvas.gameObject.SetActive(true);
     public void ToolkitHover(TypeCard cardType) => _uIHoverToolkit.StartHover(cardType);
     public void ToolkitHoverEnd() => _uIHoverToolkit.EndHover();
-    public void RestartLevel() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void RestartLevel() => _root.RestartBattle();
     public void SpawnHouseUI() => _root.Player.SpawnBuild(TypeCard.Build);
     public void SpawnBowmanUI() => _root.Player.SpawnEntity(TypeCard.Bowman);
     public void SpawnSwordsmanUI() => _root.Player.SpawnEntity(TypeCard.Swordsman);
