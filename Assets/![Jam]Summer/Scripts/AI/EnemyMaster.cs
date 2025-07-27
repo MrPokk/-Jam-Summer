@@ -24,17 +24,7 @@ public class EnemyMaster : ControlMaster
             Debug.LogError($"{name}: {nameof(AISetting)} не может быть null");
             return;
         }
-
-
-        if (_setting != null)
-        {
-            Debug.LogError($"{name}: Настройки ИИ уже установлены");
-        }
-        else
-        {
-            _setting = setting;
-        }
-
+        _setting = setting;
         Init();
     }
 

@@ -15,7 +15,7 @@ public class ObjectGridMono<T> : GridMonoBehaviour<T> where T : MonoBehaviour
     {
         foreach (T obj in Grid.GetDictionary().Values)
         {
-            Destroy(obj);
+            Destroy(obj.gameObject);
         }
         Grid.Clear();
     }

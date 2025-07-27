@@ -47,12 +47,12 @@ MonoBehaviour:
       data:
         Inversion: 0
         Count: 1
-        Card: 4
+        Card: 3
         UseBuildMoney: 0
     - rid: 4547710461926440961
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
-        CardToSpawn: 4
+        CardToSpawn: 3
         UseBuildMoney: 0
         UseBuildMoneyIfNecessary: 0
         Count: 1
