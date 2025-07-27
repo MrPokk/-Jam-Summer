@@ -8,6 +8,8 @@ using UnityEngine;
 public abstract class Card : CMSViewCore
 {
     [SerializeField]
+    protected TypeCard _type;
+    [SerializeField]
     protected int _maxHealth;
     [SerializeField]
     protected int _health;
@@ -19,6 +21,8 @@ public abstract class Card : CMSViewCore
     protected bool _isPlayer;
     public int Priority;
 
+    public virtual TypeCard Type => _type;
+    public virtual CategoryCard Category => CategoryCard.None;
     public int MaxHealth => _maxHealth;
     public int Health => _health;
     public int Price => _price;
@@ -72,4 +76,20 @@ public abstract class Card : CMSViewCore
         }
     }
 }
-
+public enum CategoryCard
+{
+    None,
+    Build,
+    Entity,
+    Other
+}
+public enum TypeCard
+{
+    None,
+    Build,
+    Castle,
+    Bowman,
+    Swordsman,
+    Wizard,
+    Cavalry
+}

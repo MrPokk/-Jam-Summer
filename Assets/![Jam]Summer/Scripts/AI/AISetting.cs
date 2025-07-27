@@ -9,14 +9,9 @@ public class AISetting : ScriptableObject
     public float SaveMoneyBuild = 0.5f;
     public CardList CardList;
     public AIDifficulty Difficulty = AIDifficulty.Normal;
-    public AIKeepProportions KeepProportions;
 
     [Header("AI Behaviors")]
     public List<AIBehavior> Behaviors = new List<AIBehavior>();
-
-    [Header("Default Behavior")]
-    [Tooltip("Use default behavior when no conditions are met")]
-    public bool UseDefaultBehavior = true;
 }
 
 public enum AIDifficulty

@@ -59,9 +59,9 @@ public class UIRoot : MonoBehaviour
 
     private void UpdatePrices()
     {
-        _priceBuildText.text = _root.Player.Cards.Builds.FirstOrDefault(e => e is CardBuild).Price.ToString();
-        _priceBowmanText.text = _root.Player.Cards.Entities.FirstOrDefault(e => e is CardBowman).Price.ToString();
-        _priceSwordsmanText.text = _root.Player.Cards.Entities.FirstOrDefault(e => e is CardSwordsman).Price.ToString();
+        _priceBuildText.text = _root.Player.Cards.Builds.Find(e => e.Type == TypeCard.Build).Price.ToString();
+        _priceBowmanText.text = _root.Player.Cards.Entities.Find(e => e.Type == TypeCard.Bowman).Price.ToString();
+        _priceSwordsmanText.text = _root.Player.Cards.Entities.Find(e => e.Type == TypeCard.Swordsman).Price.ToString();
     }
 
     public void ToggleCanvas()
