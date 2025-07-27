@@ -10,126 +10,150 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a85c76f1e363090408440f2b4ffba8fc, type: 3}
-  m_Name: AIEasy2
+  m_Name: AINormal2 (squad)
   m_EditorClassIdentifier: 
-  SaveMoneyBuild: 0.6
+  SaveMoneyBuild: 0.3
   CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
-  Difficulty: 0
+  Difficulty: 1
   Behaviors:
   - Conditions:
-    - rid: 4547710453323923550
+    - rid: 4547710453323923524
+    - rid: 4547710453323923525
     Actions:
-    - rid: 4547710453323923551
+    - rid: 4547710453323923526
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710453323923541
+    - rid: 4547710453323923528
+    - rid: 4547710453323923529
     Actions:
-    - rid: 4547710453323923542
+    - rid: 4547710453323923530
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710453323923546
-    - rid: 4547710453323923548
+    - rid: 4547710453323923532
     Actions:
-    - rid: 4547710453323923549
+    - rid: 4547710453323923533
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710453323923552
+    - rid: 4547710453323923534
+    - rid: 4547710453323923537
     Actions:
-    - rid: 4547710453323923553
+    - rid: 4547710453323923535
+    - rid: 4547710453323923536
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710453323923554
-    - rid: 4547710453323923557
+    - rid: 4547710453323923538
     Actions:
-    - rid: 4547710453323923555
+    - rid: 4547710453323923539
+    - rid: 4547710453323923540
     ExitWhenExecuting: 0
   references:
     version: 2
     RefIds:
-    - rid: 4547710453323923541
-      type: {class: HasMoneyBuildCondition, ns: , asm: Assembly-CSharp}
+    - rid: 4547710453323923524
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 1
+        CountMin: 3
+        IsEnemy: 0
+    - rid: 4547710453323923525
+      type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
       data:
         Inversion: 0
         Count: 1
         Card: 1
-    - rid: 4547710453323923542
+        UseBuildMoney: 1
+    - rid: 4547710453323923526
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
         CardToSpawn: 1
         UseBuildMoney: 1
         UseBuildMoneyIfNecessary: 0
         Count: 1
-    - rid: 4547710453323923546
+    - rid: 4547710453323923528
       type: {class: CountCardCategoryInSquareCondition, ns: , asm: Assembly-CSharp}
       data:
         Inversion: 0
         CategoryCard: 2
         CountMin: 1
         IsEnemy: 1
-        point1: {x: 13, y: 0}
+        point1: {x: 10, y: 0}
         point2: {x: 16, y: 6}
-    - rid: 4547710453323923548
+    - rid: 4547710453323923529
       type: {class: CountCardCategoryInSquareCondition, ns: , asm: Assembly-CSharp}
       data:
         Inversion: 1
         CategoryCard: 2
-        CountMin: 1
+        CountMin: 2
         IsEnemy: 0
-        point1: {x: 14, y: 0}
+        point1: {x: 10, y: 0}
         point2: {x: 16, y: 6}
-    - rid: 4547710453323923549
+    - rid: 4547710453323923530
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
         CardToSpawn: 4
         UseBuildMoney: 0
         UseBuildMoneyIfNecessary: 1
         Count: 2
-    - rid: 4547710453323923550
-      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+    - rid: 4547710453323923532
+      type: {class: HasMoneyBuildCondition, ns: , asm: Assembly-CSharp}
       data:
-        Inversion: 1
+        Inversion: 0
+        Count: 1
         Card: 1
-        CountMin: 2
-        IsEnemy: 0
-    - rid: 4547710453323923551
+    - rid: 4547710453323923533
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
         CardToSpawn: 1
         UseBuildMoney: 1
         UseBuildMoneyIfNecessary: 0
         Count: 1
-    - rid: 4547710453323923552
-      type: {class: CountCardCategoryCondition, ns: , asm: Assembly-CSharp}
-      data:
-        Inversion: 1
-        Card: 2
-        CountMin: 1
-        IsEnemy: 0
-    - rid: 4547710453323923553
-      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
-      data:
-        CardToSpawn: 4
-        UseBuildMoney: 0
-        UseBuildMoneyIfNecessary: 0
-        Count: 1
-    - rid: 4547710453323923554
-      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
-      data:
-        Inversion: 0
-        Card: 1
-        CountMin: 6
-        IsEnemy: 0
-    - rid: 4547710453323923555
-      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
-      data:
-        CardToSpawn: 3
-        UseBuildMoney: 0
-        UseBuildMoneyIfNecessary: 0
-        Count: 3
-    - rid: 4547710453323923557
+    - rid: 4547710453323923534
       type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
       data:
         Inversion: 0
         Count: 3
         Card: 3
         UseBuildMoney: 0
+    - rid: 4547710453323923535
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 4
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 2
+    - rid: 4547710453323923536
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 3
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 1
+    - rid: 4547710453323923537
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 1
+        CountMin: 8
+        IsEnemy: 0
+    - rid: 4547710453323923538
+      type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Count: 7
+        Card: 3
+        UseBuildMoney: 1
+    - rid: 4547710453323923539
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 3
+        UseBuildMoney: 1
+        UseBuildMoneyIfNecessary: 0
+        Count: 2
+    - rid: 4547710453323923540
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 4
+        UseBuildMoney: 1
+        UseBuildMoneyIfNecessary: 0
+        Count: 5

@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85c76f1e363090408440f2b4ffba8fc, type: 3}
+  m_Name: AIHard1 (push)
+  m_EditorClassIdentifier: 
+  SaveMoneyBuild: 0
+  CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
+  Difficulty: 2
+  Behaviors:
+  - Conditions:
+    - rid: 4547710461926441031
+    - rid: 4547710461926441033
+    - rid: 4547710461926441042
+    Actions:
+    - rid: 4547710461926441032
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710461926441034
+    - rid: 4547710461926441036
+    Actions:
+    - rid: 4547710461926441035
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710461926441040
+    Actions:
+    - rid: 4547710461926441041
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710461926441043
+    - rid: 4547710461926441044
+    Actions:
+    - rid: 4547710461926441045
+    ExitWhenExecuting: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4547710461926441031
+      type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Count: 3
+        Card: 4
+        UseBuildMoney: 0
+    - rid: 4547710461926441032
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 4
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 3
+    - rid: 4547710461926441033
+      type: {class: CountCardCategoryCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 2
+        CountMin: 1
+        IsEnemy: 0
+    - rid: 4547710461926441034
+      type: {class: CountCardCategoryCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Card: 2
+        CountMin: 2
+        IsEnemy: 0
+    - rid: 4547710461926441035
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 1
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 1
+    - rid: 4547710461926441036
+      type: {class: CountCardCategoryInSquareCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        CategoryCard: 2
+        CountMin: 1
+        IsEnemy: 1
+        point1: {x: 8, y: 0}
+        point2: {x: 16, y: 6}
+    - rid: 4547710461926441040
+      type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Count: 3
+        Card: 6
+        UseBuildMoney: 0
+    - rid: 4547710461926441041
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 6
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 3
+    - rid: 4547710461926441042
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 1
+        CountMin: 11
+        IsEnemy: 0
+    - rid: 4547710461926441043
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Card: 6
+        CountMin: 2
+        IsEnemy: 0
+    - rid: 4547710461926441044
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 3
+        CountMin: 2
+        IsEnemy: 0
+    - rid: 4547710461926441045
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 3
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 2
