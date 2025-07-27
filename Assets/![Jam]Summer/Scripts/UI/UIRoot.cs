@@ -13,6 +13,8 @@ public class UIRoot : MonoBehaviour
     [SerializeField] private TMP_Text _priceBuildText;
     [SerializeField] private TMP_Text _priceBowmanText;
     [SerializeField] private TMP_Text _priceSwordsmanText;
+    [SerializeField] private TMP_Text _priceWizardText;
+    [SerializeField] private TMP_Text _priceCavalryText;
     [SerializeField] private TMP_Text _moneyText;
     [SerializeField] private TextPixelOutline _changesMoneyContainer;
 
@@ -62,6 +64,8 @@ public class UIRoot : MonoBehaviour
         _priceBuildText.text = _root.Player.Cards.Builds.Find(e => e.Type == TypeCard.Build).Price.ToString();
         _priceBowmanText.text = _root.Player.Cards.Entities.Find(e => e.Type == TypeCard.Bowman).Price.ToString();
         _priceSwordsmanText.text = _root.Player.Cards.Entities.Find(e => e.Type == TypeCard.Swordsman).Price.ToString();
+        _priceWizardText.text = _root.Player.Cards.Entities.Find(e => e.Type == TypeCard.Wizard).Price.ToString();
+        _priceCavalryText.text = _root.Player.Cards.Entities.Find(e => e.Type == TypeCard.Cavalry).Price.ToString();
     }
 
     public void ToggleCanvas()
@@ -116,8 +120,11 @@ public class UIRoot : MonoBehaviour
         sequence.Play();
     }
 
-    public void SpawnHouseUI(int index) => _root.Player.SpawnBuild(index);
-    public void SpawnEntityUI(int index) => _root.Player.SpawnEntity(index);
+    public void SpawnHouseUI() => _root.Player.SpawnBuild(TypeCard.Build);
+    public void SpawnBowmanUI() => _root.Player.SpawnEntity(TypeCard.Bowman);
+    public void SpawnSwordsmanUI() => _root.Player.SpawnEntity(TypeCard.Swordsman);
+    public void SpawnWizardUI() => _root.Player.SpawnEntity(TypeCard.Wizard);
+    public void SpawnCavalryUI() => _root.Player.SpawnEntity(TypeCard.Cavalry);
 
     private void OnDestroy()
     {

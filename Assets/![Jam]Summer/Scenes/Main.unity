@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardCastle: {fileID: 4774586526250846706, guid: 99daa1e3ac5690746ab78c42866f2758, type: 3}
-  Money: 0
+  Money: 1000
   Team: 1
   PosCastle: {x: 1, y: 3}
   LineFront: 3
@@ -2110,7 +2110,7 @@ MonoBehaviour:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
         m_MethodName: SpawnHouseUI
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2500,8 +2500,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
-        m_MethodName: SpawnEntityUI
-        m_Mode: 3
+        m_MethodName: SpawnBowmanUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2599,6 +2599,8 @@ MonoBehaviour:
   _priceBuildText: {fileID: 1146704014}
   _priceBowmanText: {fileID: 1892565198}
   _priceSwordsmanText: {fileID: 758636194}
+  _priceWizardText: {fileID: 1073108941}
+  _priceCavalryText: {fileID: 335563176}
   _moneyText: {fileID: 1833217870}
   _changesMoneyContainer: {fileID: 237957763}
 --- !u!1 &335563174
@@ -2613,7 +2615,7 @@ GameObject:
   - component: {fileID: 335563177}
   - component: {fileID: 335563176}
   m_Layer: 5
-  m_Name: PriceHouse
+  m_Name: PriceHorse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2974,8 +2976,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
-        m_MethodName: SpawnHouseUI
-        m_Mode: 3
+        m_MethodName: SpawnWizardUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3763,10 +3765,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 162495258}
-  - {fileID: 1063394617}
-  - {fileID: 432344411}
-  - {fileID: 278928593}
   - {fileID: 1437529811}
+  - {fileID: 1063394617}
+  - {fileID: 278928593}
+  - {fileID: 432344411}
   m_Father: {fileID: 1621838579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -3941,8 +3943,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
-        m_MethodName: SpawnHouseUI
-        m_Mode: 3
+        m_MethodName: SpawnCavalryUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4001,7 +4003,7 @@ GameObject:
   - component: {fileID: 1073108942}
   - component: {fileID: 1073108941}
   m_Layer: 5
-  m_Name: PriceHouse
+  m_Name: PriceMagic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4784,8 +4786,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299621084}
         m_TargetAssemblyTypeName: UIRoot, Assembly-CSharp
-        m_MethodName: SpawnEntityUI
-        m_Mode: 3
+        m_MethodName: SpawnSwordsmanUI
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

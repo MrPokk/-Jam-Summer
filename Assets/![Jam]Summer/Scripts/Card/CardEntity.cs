@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class CardEntity : Card
 {
@@ -22,6 +23,7 @@ public class CardEntity : Card
     public override IEnumerator TurnStart()
     {
         if (Health == 0) yield break;
+        yield return SwapFront();
         while (Step > 0)
         {
             if (GridMaster.Instance.TryFindNearestEntity(_pos, !IsPlayer, out Card enemy, out float dist))
@@ -33,11 +35,12 @@ public class CardEntity : Card
                 else
                 {
                     yield return Attack(enemy);
-                    yield break;
+                    break;
                 }
             }
             Step--;
         }
+
         yield break;
     }
     public override IEnumerator TurnEnd()
@@ -104,7 +107,23 @@ public class CardEntity : Card
         transform.DOPunchPosition((Vector3)GridMaster.Instance.GridToWorldCentre(card.PosGrid) - oldPos, TimeAniAttack, 1, 0.2f).Play();
         yield return new WaitForSeconds(TimeAttack);
     }
-
+    public IEnumerator SwapFront()
+    {
+        if (IsFront == true &&
+            GridMaster.Instance.TryFindNearestEntity(_pos, !IsPlayer, out Card enemy, out float distEnemy) &&
+            GridMaster.Instance.TryGetAtPos(_pos - NormalizedVec2Int(_pos - enemy.PosGrid), out Card frontCard) &&
+            frontCard is CardEntity entity &&
+            entity.IsPlayer == IsPlayer)
+        {
+            GridMaster.Instance.Remove(_pos);
+            GridMaster.Instance.Remove(entity.PosGrid);
+            GridMaster.Instance.Add(this, entity.PosGrid);
+            GridMaster.Instance.Add(entity, _pos);
+            (_pos, entity._pos) = (entity._pos, _pos);
+            yield return new WaitForSeconds(TimeMove);
+        }
+        yield break;
+    }
     protected Vector2Int NormalizedVec2Int(Vector2Int vector)
     {
         Vector2 vector2 = vector;
