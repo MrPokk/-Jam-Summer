@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using System;
 using static UnityEngine.EventSystems.EventTrigger;
+using InGame.Script.Component_Sound;
 
 public class Root : RootMonoBehavior
 {
@@ -78,6 +79,7 @@ public class Root : RootMonoBehavior
     //___Относительно_игрока___
     public IEnumerator Win()
     {
+        SoundManager.PlaySound(SoundType.Win);
         yield return LoadAnimationEndRound(3f);
         UIRoot.ToggleCanvas();
 
@@ -135,6 +137,7 @@ public class Root : RootMonoBehavior
 
     public IEnumerator Lose()
     {
+        SoundManager.PlaySound(SoundType.Loss);
         UIRoot.ToggleManagementPanel();
         yield return LoadAnimationEndRound(4f);
         UIRoot.ShowLoseCanvas();

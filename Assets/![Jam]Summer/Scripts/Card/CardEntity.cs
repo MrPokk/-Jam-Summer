@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using InGame.Script.Component_Sound;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
