@@ -44,11 +44,12 @@ public class TextPixelOutline : MonoBehaviour
         UpdateOutlineColor();
         UpdateOutlineTransforms();
     }
-    
+
     private void Update()
     {
         UpdateOutlineTransforms();
     }
+
 
     private void UpdateOutlineTransforms()
     {
@@ -64,10 +65,15 @@ public class TextPixelOutline : MonoBehaviour
             {
                 outline.transform.localPosition = _mainText.transform.localPosition + transformData.positionOffset;
 
-                outline.transform.localScale = new Vector3(
+                Vector3 newScale = new Vector3(
                     _mainText.transform.localScale.x * transformData.scaleFactor.x,
                     _mainText.transform.localScale.y * transformData.scaleFactor.y,
                     _mainText.transform.localScale.z * transformData.scaleFactor.z);
+
+                if (float.IsFinite(newScale.x) && float.IsFinite(newScale.y) && float.IsFinite(newScale.z))
+                {
+                    outline.transform.localScale = newScale;
+                }
             }
         }
     }
@@ -80,16 +86,22 @@ public class TextPixelOutline : MonoBehaviour
             if (outline != null && _mainText != null)
             {
                 Vector3 positionOffset = outline.transform.localPosition - _mainText.transform.localPosition;
+
+                Vector3 mainScale = _mainText.transform.localScale;
+                Vector3 outlineScale = outline.transform.localScale;
+
                 Vector3 scaleFactor = new Vector3(
-                    outline.transform.localScale.x / _mainText.transform.localScale.x,
-                    outline.transform.localScale.y / _mainText.transform.localScale.y,
-                    outline.transform.localScale.z / _mainText.transform.localScale.z);
+                    mainScale.x == 0 ? 1 : outlineScale.x / mainScale.x,
+                    mainScale.y == 0 ? 1 : outlineScale.y / mainScale.y,
+                    mainScale.z == 0 ? 1 : outlineScale.z / mainScale.z);
 
                 _outlineTransforms[outline] = (positionOffset, scaleFactor);
             }
         }
     }
 
+    public float GetAlpha() => _mainText != null ? _mainText.alpha : throw new Exception("MainText is null");
+    public string GetText() => _mainText != null ? _mainText.text : throw new Exception("MainText is null");
     public Transform GetTransform() => _mainText != null ? _mainText.transform : throw new Exception("MainText is null");
     public Vector3 GetPosition() => _mainText != null ? _mainText.transform.localPosition : throw new Exception("MainText is null");
     public Vector3 GetScale() => _mainText != null ? _mainText.transform.localScale : throw new Exception("MainText is null");
@@ -108,6 +120,7 @@ public class TextPixelOutline : MonoBehaviour
         return this;
     }
 
+
     public TextPixelOutline SetAlpha(float targetAlpha)
     {
         if (_mainText == null)
@@ -122,7 +135,7 @@ public class TextPixelOutline : MonoBehaviour
         return this;
     }
 
-    public TextPixelOutline SetTextColor(Color color)
+    public TextPixelOutline SetColor(Color color)
     {
         _textColor = color;
         if (_mainText != null) _mainText.color = color;
@@ -164,7 +177,7 @@ public class TextPixelOutline : MonoBehaviour
         Color outlineColor,
         float alpha = 1f)
     {
-        return SetTextColor(textColor)
+        return SetColor(textColor)
             .SetOutlineColor(outlineColor)
             .SetAlpha(alpha)
             .SetContent(text)

@@ -139,5 +139,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0545e6c3752b22f82172e0272d8192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <EntityName>k__BackingField: Entity
-  <Description>k__BackingField: Entity description
+  <EntityName>k__BackingField: Bowman
+  <Description>k__BackingField: Can shoot from a distance

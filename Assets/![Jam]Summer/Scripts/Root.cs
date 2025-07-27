@@ -1,46 +1,67 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using BitterCMS.UnityIntegration;
-using BitterCMS.UnityIntegration.Utility;
+using BitterCMS.Utility.Interfaces;
+using System.Linq;
 using UnityEngine;
+using System;
 
 public class Root : RootMonoBehavior
 {
+    [Header("UI References")]
     [field: SerializeField]
     public UIRoot UIRoot { get; private set; }
 
+    [Header("Game Systems")]
     public GridMaster Grid;
     public CardList CardList;
+
+    [field: SerializeField] public List<AISetting> AISettingsSetups { get; private set; } = new();
+    private int _roundCurrent = 0;
+
+
+    [Header("Player and Enemy")]
     public PlayerMaster Player;
     public EnemyMaster Enemy;
 
     protected override void GlobalStart()
     {
+        var fistRound = AISettingsSetups.FirstOrDefault();
+
+        if (!AISettingsSetups.Any())
+            throw new Exception("AISettingsSetups is empty");
+
         Player = GetComponent<PlayerMaster>();
         Enemy = GetComponent<EnemyMaster>();
 
         Grid.Init();
         Player.Init();
-        Enemy.Init();
+        Enemy.Init(fistRound);
 
         UIRoot.InitializeUI();
-        CoroutineUtility.Run(LoadGame());
+        CoroutineUtility.Run(PreLoadRound());
     }
-    private IEnumerator LoadGame()
+
+    private IEnumerator PreLoadRound()
     {
-        yield return LoadAnimation(4f);
+        yield return LoadAnimationRunRound(3f);
         UIRoot.ToggleCanvas();
 
         CoroutineUtility.Run(Loop());
         yield break;
     }
 
-    private Coroutine LoadAnimation(float duration = -1f)
+    private Coroutine LoadAnimationRunRound(float duration)
     {
         UIRoot.HudRoot.RadialDissolveController.gameObject.SetActive(true);
-        return UIRoot.HudRoot.RadialDissolveController.StartDissolveAnimation(duration);
+        return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(duration, DissolveType.Decrease);
     }
 
+    private Coroutine LoadAnimationEndRound(float duration)
+    {
+        UIRoot.HudRoot.RadialDissolveController.gameObject.SetActive(true);
+        return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(duration, DissolveType.Increase);
+    }
 
     private IEnumerator Loop()
     {
@@ -51,5 +72,27 @@ public class Root : RootMonoBehavior
             yield return Grid.Step();
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    //___Относительно_игрока___
+    public IEnumerator Win()
+    {
+        yield return LoadAnimationEndRound(3f);
+        UIRoot.ToggleCanvas();
+
+        _roundCurrent++;
+        var currentSetupRound = AISettingsSetups[_roundCurrent];
+        Enemy.Init(currentSetupRound);
+
+        yield return LoadAnimationRunRound(3f);
+    }
+
+    public IEnumerator Lose()
+    {
+        UIRoot.ToggleManagementPanel();
+        yield return LoadAnimationEndRound(4f);
+        UIRoot.ShowLoseCanvas();
+
+        yield break;
     }
 }

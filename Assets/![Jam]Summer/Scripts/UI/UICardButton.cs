@@ -1,25 +1,33 @@
 using BitterCMS.UnityIntegration;
+using BitterCMS.Utility.Interfaces;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems; // Добавляем это пространство имен
+using UnityEngine.EventSystems;
 
 [DisallowMultipleComponent]
-public class UICardButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UICardButton : MonoBehaviour, IInitializable, IPointerEnterHandler, IPointerExitHandler
 {
     private UIRoot _uIRoot;
-    [SerializeField] private TypeCard _cardType;
+    public UIPrice Price { get; private set; }
+    [field: SerializeField] public TypeCard Type { get; private set; }
 
-    private void Start()
+    public void Init()
     {
         _uIRoot = GlobalState.GetRoot<Root>().UIRoot;
+
+        Price = GetComponentInChildren<UIPrice>();
+
+        if (Price == null)
+            throw new System.NotImplementedException($"Not implemented {Price} in {gameObject.name}");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _uIRoot.UiHoverToolkit.StartHover(_cardType);
+        _uIRoot.ToolkitHover(Type);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _uIRoot.UiHoverToolkit.EndHover();
+        _uIRoot.ToolkitHoverEnd();
     }
 }

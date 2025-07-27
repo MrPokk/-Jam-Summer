@@ -3,155 +3,143 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BitterCMS.UnityIntegration.Utility
+public sealed class CoroutineUtility : MonoBehaviour
 {
-    public class CoroutineUtility : MonoBehaviour
+    private static CoroutineUtility _instance;
+    public static CoroutineUtility Instance
     {
-        private static CoroutineUtility _instance;
-        private static CoroutineUtility Instance {
-            get {
-                if (_instance)
-                    return _instance;
-
-                var manager = new GameObject("[CoroutineUtility]").AddComponent<CoroutineUtility>();
-                DontDestroyOnLoad(manager.gameObject);
-                _instance = manager;
-
-                return _instance;
-            }
-        }
-
-        private readonly Dictionary<IEnumerator, Coroutine> _activeCoroutines = new Dictionary<IEnumerator, Coroutine>();
-        private readonly List<Action> _allStopCallbacks = new List<Action>();
-        private readonly List<Action<IEnumerator>> _singleStopCallbacks = new List<Action<IEnumerator>>();
-
-        #region [Public Methods]
-        public static Coroutine Run(IEnumerator coroutine)
+        get
         {
-            if (coroutine != null)
-                return Instance.CRun(coroutine);
-            
-            Debug.LogWarning("Attempted to start a null coroutine, return: yield break");
-            return null;
-        }
-
-        public static void Stop(IEnumerator coroutine)
-        {
-            if (coroutine == null) return;
-            Instance.CStop(coroutine);
-        }
-
-        public static void StopAll()
-        {
-            Instance.CStopAll();
-        }
-
-        public static void SubscribeToAllStop(Action callback)
-        {
-            Instance.CSubscribeToAllStop(callback);
-        }
-
-        public static void SubscribeToStopCoroutine(Action<IEnumerator> callback)
-        {
-            Instance.CSubscribeToStopCoroutine(callback);
-        }
-
-        public static void UnsubscribeAllCoroutine()
-        {
-            Instance.CUnsubscribeAllCoroutine();
-        }
-
-        public static bool IsAllCoroutinesFinished()
-        {
-            return Instance._activeCoroutines.Count == 0;
-        }
-        #endregion
-        
-        #region [Private Methods]
-        private Coroutine CRun(IEnumerator coroutine)
-        {
-            var coroutineInstance = StartCoroutine(ExecuteCoroutine(coroutine));
-            _activeCoroutines.Add(coroutine, coroutineInstance);
-            return coroutineInstance;
-        }
-
-        private void CStop(IEnumerator coroutine)
-        {
-            if (!_activeCoroutines.TryGetValue(coroutine, out var coroutineInstance))
-                return;
-
-            StopCoroutine(coroutineInstance);
-            _activeCoroutines.Remove(coroutine);
-            NotifyCoroutineStopped(coroutine);
-        }
-
-        private void CStopAll()
-        {
-            foreach (var coroutine in _activeCoroutines.Values)
+            if (_instance == null)
             {
-                StopCoroutine(coroutine);
+                var instanceFind = FindFirstObjectByType<CoroutineUtility>();
+                if (instanceFind == null)
+                    _instance = new GameObject("[CoroutineUtility]").AddComponent<CoroutineUtility>();
+                else
+                    _instance = instanceFind;
             }
-
-            var stoppedCoroutines = new List<IEnumerator>(_activeCoroutines.Keys);
-            _activeCoroutines.Clear();
-
-            foreach (var coroutine in stoppedCoroutines)
-            {
-                NotifyCoroutineStopped(coroutine);
-            }
-
-            NotifyAllCoroutinesStopped();
+            return _instance;
         }
-
-        private void CSubscribeToAllStop(Action callback)
-        {
-            if (callback == null) return;
-            _allStopCallbacks.Add(callback);
-        }
-
-        private void CSubscribeToStopCoroutine(Action<IEnumerator> callback)
-        {
-            if (callback == null) return;
-            _singleStopCallbacks.Add(callback);
-        }
-
-        private void CUnsubscribeAllCoroutine()
-        {
-            _allStopCallbacks.Clear();
-            _singleStopCallbacks.Clear();
-        }
-
-        private IEnumerator ExecuteCoroutine(IEnumerator coroutine)
-        {
-            yield return coroutine;
-
-            if (!_activeCoroutines.ContainsKey(coroutine))
-                yield break;
-            
-            _activeCoroutines.Remove(coroutine);
-            NotifyCoroutineStopped(coroutine);
-        }
-
-        private void NotifyCoroutineStopped(IEnumerator coroutine)
-        {
-            foreach (var callback in _singleStopCallbacks)
-            {
-                callback?.Invoke(coroutine);
-            }
-
-            if (_activeCoroutines.Count == 0)
-            {
-                NotifyAllCoroutinesStopped();
-            }
-        }
-
-        private void NotifyAllCoroutinesStopped()
-        {
-            foreach (var callback in _allStopCallbacks)
-            {
-                callback?.Invoke();
-            }
-        }
-        #endregion
     }
+
+    private readonly Dictionary<int, ActiveCoroutine> _activeCoroutines = new Dictionary<int, ActiveCoroutine>();
+    private int _nextCoroutineId = 1;
+
+    private event Action<int> OnCoroutineStopped;
+    private event Action OnAllCoroutinesStopped;
+
+    public static CoroutineHandle Run(IEnumerator coroutine)
+    {
+        if (coroutine == null)
+        {
+            Debug.LogWarning("Attempted to start a null coroutine.");
+            return CoroutineHandle.Invalid;
+        }
+
+        return Instance.StartNewCoroutine(coroutine);
+    }
+
+    public static void Stop(CoroutineHandle handle)
+    {
+        if (!handle.IsValid) return;
+        Instance.StopCoroutineInternal(handle);
+    }
+
+    public static void StopAll()
+    {
+        Instance.StopAllCoroutinesInternal();
+    }
+
+    public static void SubscribeToStop(Action<CoroutineHandle> callback)
+    {
+        if (callback == null) return;
+        Instance.OnCoroutineStopped += (id) => callback(new CoroutineHandle(id));
+    }
+
+    public static void SubscribeToAllStop(Action callback)
+    {
+        if (callback == null) return;
+        Instance.OnAllCoroutinesStopped += callback;
+    }
+
+    public static bool HasActiveCoroutines() => Instance._activeCoroutines.Count > 0;
+
+    private CoroutineHandle StartNewCoroutine(IEnumerator coroutine)
+    {
+        int id = _nextCoroutineId++;
+        var handle = new CoroutineHandle(id);
+
+        var unityCoroutine = StartCoroutine(RunCoroutineWrapper(id, coroutine));
+        _activeCoroutines.Add(id, new ActiveCoroutine(unityCoroutine, handle));
+
+        return handle;
+    }
+
+    private IEnumerator RunCoroutineWrapper(int id, IEnumerator coroutine)
+    {
+        yield return coroutine;
+
+        if (_activeCoroutines.Remove(id, out var activeCoroutine))
+        {
+            OnCoroutineStopped?.Invoke(id);
+            if (_activeCoroutines.Count == 0)
+                OnAllCoroutinesStopped?.Invoke();
+        }
+    }
+
+    private void StopCoroutineInternal(CoroutineHandle handle)
+    {
+        if (!_activeCoroutines.Remove(handle.Id, out var activeCoroutine))
+            return;
+
+        StopCoroutine(activeCoroutine.UnityCoroutine);
+        OnCoroutineStopped?.Invoke(handle.Id);
+
+        if (_activeCoroutines.Count == 0)
+            OnAllCoroutinesStopped?.Invoke();
+    }
+
+    private void StopAllCoroutinesInternal()
+    {
+        foreach (var entry in _activeCoroutines.Values)
+        {
+            StopCoroutine(entry.UnityCoroutine);
+            OnCoroutineStopped?.Invoke(entry.Handle.Id);
+        }
+
+        _activeCoroutines.Clear();
+        OnAllCoroutinesStopped?.Invoke();
+    }
+
+    private readonly struct ActiveCoroutine
+    {
+        public readonly Coroutine UnityCoroutine;
+        public readonly CoroutineHandle Handle;
+
+        public ActiveCoroutine(Coroutine unityCoroutine, CoroutineHandle handle)
+        {
+            UnityCoroutine = unityCoroutine;
+            Handle = handle;
+        }
+    }
+}
+
+
+public readonly struct CoroutineHandle : IEquatable<CoroutineHandle>
+{
+    public static readonly CoroutineHandle Invalid = new CoroutineHandle(-1);
+
+    public readonly int Id;
+    public bool IsValid => Id != -1;
+
+    public CoroutineHandle(int id)
+    {
+        Id = id;
+    }
+
+    public bool Equals(CoroutineHandle other) => Id == other.Id;
+    public override bool Equals(object obj) => obj is CoroutineHandle other && Equals(other);
+    public override int GetHashCode() => Id;
+    public static bool operator ==(CoroutineHandle a, CoroutineHandle b) => a.Equals(b);
+    public static bool operator !=(CoroutineHandle a, CoroutineHandle b) => !a.Equals(b);
 }

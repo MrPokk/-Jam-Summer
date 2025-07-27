@@ -1,43 +1,102 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyMaster : ControlMaster
 {
-    [SerializeField] protected AISetting Setting;
-    public float MoneyFromBuild;
-    public float BowOnSword;
-    public int GetMoney(bool UseBuild)
+    [SerializeField]
+    private AISetting _setting;
+
+    public float MoneyFromBuild { get; set; }
+    public AISetting Setting => _setting;
+
+    public int GetMoney(bool useBuild)
     {
-        return UseBuild ? Money : (int)(Money - MoneyFromBuild);
+        return useBuild ? Money : Mathf.FloorToInt(Money - MoneyFromBuild);
+    }
+
+    public void Init(AISetting setting)
+    {
+        if (setting == null)
+        {
+            Debug.LogError($"{name}: {nameof(AISetting)} не может быть null");
+            return;
+        }
+
+
+        if (_setting != null)
+        {
+            Debug.LogError($"{name}: Настройки ИИ уже установлены");
+        }
+        else
+        {
+            _setting = setting;
+        }
+
+        Init();
     }
 
     public override void Init()
     {
         base.Init();
-        MoneyFromBuild = 0;
+        ResetBuildMoney();
+    }
+
+    public void ResetBuildMoney()
+    {
+        MoneyFromBuild = 0f;
     }
 
     public override IEnumerator Step()
     {
-        MoneyFromBuild += IncomeStep * Setting.SaveMoneyBuild;
-
-        // Проверяем все поведения
-        foreach (var behavior in Setting.Behaviors)
+        if (_setting == null)
         {
-            if (behavior.ShouldExecute(this))
-            {
-                if (behavior.Execute(this) && behavior.ExitWhenExecuting)
-                    break;
-            }
+            Debug.LogError($"{name}: Настройки ИИ не установлены");
+            yield break;
         }
+
+        AddBuildIncome();
+        ExecuteBehaviors();
+
         IncomeStep = 0;
         yield break;
     }
+
+    private void AddBuildIncome()
+    {
+        MoneyFromBuild += IncomeStep * _setting.SaveMoneyBuild;
+    }
+
+    private void ExecuteBehaviors()
+    {
+        if (_setting.Behaviors == null || _setting.Behaviors.Count == 0)
+        {
+            Debug.LogWarning($"{name}: Нет поведений для выполнения");
+            return;
+        }
+
+        foreach (var behavior in _setting.Behaviors.Where(b => b != null))
+        {
+            try
+            {
+                if (behavior.ShouldExecute(this) && behavior.Execute(this) && behavior.ExitWhenExecuting)
+                {
+                    break;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"{name}: Ошибка выполнения поведения {behavior.GetType().Name}: {ex.Message}");
+            }
+        }
+    }
     public Card GetCardType(TypeCard type)
     {
-        Card card = Setting.CardList.Entities.Find(x => x.Type == type);
-        if (card == null) card = Setting.CardList.Builds.Find(x => x.Type == type);
+        var card = (Card)Setting.CardList.Entities.Find(x => x.Type == type)
+        ?? Setting.CardList.Builds.Find(x => x.Type == type);
         return card;
     }
+
 }

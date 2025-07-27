@@ -8,7 +8,7 @@ public class GridMaster : ObjectGridMono<Card>
 {
     public static GridMaster Instance { get; private set; }
     public IEnumerable<Card> _cards => Grid.GetDictionary().Values;
-    
+
     public override void Init()
     {
         base.Init();
@@ -17,15 +17,25 @@ public class GridMaster : ObjectGridMono<Card>
 
     public IEnumerator Step()
     {
-        IEnumerable<Card> cardsForStep = Grid.GetDictionary().Values.OrderByDescending(x => x.Priority).OrderBy(x => x.IsPlayer);
+        IEnumerable<Card> cardsForStep = Grid.GetDictionary().Values
+            .OrderByDescending(x => x.Priority)
+            .OrderBy(x => x.IsPlayer)
+            .Where(x => x != null);
+
         foreach (var card in cardsForStep)
         {
-            yield return card.TurnStart();
+            if (card != null)
+            {
+                yield return card.TurnStart();
+            }
         }
 
         foreach (var card in cardsForStep)
         {
-            yield return card.TurnEnd();
+            if (card != null)
+            {
+                yield return card.TurnEnd();
+            }
         }
     }
 
@@ -35,7 +45,7 @@ public class GridMaster : ObjectGridMono<Card>
         {
             Vector3 movePos = GridToWorldCentre(pos);
             movePos.z = pos.y;
-            
+
             float distance = Vector2.Distance(value.transform.position, movePos);
             if (distance < 3)
             {
@@ -70,8 +80,8 @@ public class GridMaster : ObjectGridMono<Card>
     {
         enemy = null;
         minDistance = float.MaxValue;
-        
-        var enemies = _cards?.Where(c => c.IsPlayer == team);
+
+        var enemies = _cards?.Where(c => c != null && c.IsPlayer == team);
         if (enemies == null || !enemies.Any())
             return false;
 
@@ -84,7 +94,7 @@ public class GridMaster : ObjectGridMono<Card>
                 enemy = candidate;
             }
         }
-        
+
         return enemy != null;
     }
 
@@ -111,11 +121,11 @@ public class GridMaster : ObjectGridMono<Card>
         int maxY = Mathf.Max(point1.y, point2.y);
 
         return _cards.Count(
-                   c => c.Type == typeCard && 
-                   c.IsPlayer == team && 
-                   c.PosGrid.x >= minX && 
-                   c.PosGrid.x <= maxX && 
-                   c.PosGrid.y >= minY && 
+                   c => c.Type == typeCard &&
+                   c.IsPlayer == team &&
+                   c.PosGrid.x >= minX &&
+                   c.PosGrid.x <= maxX &&
+                   c.PosGrid.y >= minY &&
                    c.PosGrid.y <= maxY);
     }
 }

@@ -69,8 +69,9 @@ namespace BitterCMS.UnityIntegration
         {
             ((IRoot)this).LateUpdateGame(Time.deltaTime);
         }
+        
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             ((IRoot)this).StoppedGame();
         }

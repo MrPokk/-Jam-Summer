@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BitterCMS.UnityIntegration;
+using UnityEngine;
 
 public class CardCastle : CardBuild
 {
@@ -7,11 +8,11 @@ public class CardCastle : CardBuild
         base.Dead();
         if (IsPlayer)
         {
-            Debug.Log("Enemy Win");
+            CoroutineUtility.Run(GlobalState.GetRoot<Root>().Lose());
         }
         else
         {
-            Debug.Log("Player Win");
+            CoroutineUtility.Run(GlobalState.GetRoot<Root>().Win());
         }
     }
 }

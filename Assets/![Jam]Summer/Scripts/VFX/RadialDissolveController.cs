@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(Renderer))]
 public class RadialDissolveController : MonoBehaviour
@@ -8,18 +9,15 @@ public class RadialDissolveController : MonoBehaviour
     private static readonly int NoiseScaleID = Shader.PropertyToID("_NoiseScale");
     private static readonly int NoiseIntensityID = Shader.PropertyToID("_NoiseIntensity");
 
-    [Header("Dissolve Settings")]
-    [Range(0f, 1f)] public float dissolveAmount = 0f;
-    public float dissolveSpeed = 0.5f;
+    private float dissolveAmount = 0f;
+    private float dissolveSpeed = 0.5f;
 
     [Header("Noise Settings")]
-    public float noiseScale = 1f;
-    [Range(0f, 1f)] public float noiseIntensity = 0.2f;
+    [SerializeField] private float noiseScale = 1f;
+    [SerializeField, Range(0f, 1f)] private float noiseIntensity = 0.2f;
 
-    [Header("Animation")]
-    public bool playOnStart = false;
-    public bool loopAnimation = false;
-    public AnimationCurve dissolveCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    [Header("Animation Settings")]
+    [SerializeField] private AnimationCurve dissolveCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
     private Material _material;
     private Renderer _renderer;
@@ -34,7 +32,6 @@ public class RadialDissolveController : MonoBehaviour
             return;
         }
 
-        // Создаем новый материал на основе sharedMaterial для избежания модификации исходного
         _material = new Material(_renderer.sharedMaterial);
         _renderer.material = _material;
     }
@@ -42,11 +39,6 @@ public class RadialDissolveController : MonoBehaviour
     private void Start()
     {
         UpdateShaderProperties();
-
-        if (playOnStart)
-        {
-            StartDissolveAnimation();
-        }
     }
 
     private void UpdateShaderProperties()
@@ -64,32 +56,25 @@ public class RadialDissolveController : MonoBehaviour
         UpdateShaderProperties();
     }
 
-    public Coroutine StartDissolveAnimation(float duration = -1f)
+    public Coroutine DissolveAnimation(float duration = -1f, DissolveType dissolveType = DissolveType.None)
     {
+        gameObject.SetActive(true);
+
         if (_material == null && !InitializeMaterial())
             return null;
 
         StopCurrentAnimation();
 
-        float animDuration = duration > 0 ? duration : (1f / dissolveSpeed);
-        _dissolveCoroutine = StartCoroutine(AnimateDissolve(animDuration));
+        var animDuration = duration > 0 ? duration : (1f / dissolveSpeed);
+
+        if (dissolveType == DissolveType.Increase)
+            _dissolveCoroutine = StartCoroutine(AnimateIncrease(animDuration));
+        else if (dissolveType == DissolveType.Decrease)
+            _dissolveCoroutine = StartCoroutine(AnimateDecrease(animDuration));
+        else
+            throw new ArgumentException("DissolveType is not valid");
+
         return _dissolveCoroutine;
-    }
-
-    public void StopDissolveAnimation() => StopCurrentAnimation();
-
-    public void ResetDissolve()
-    {
-        StopCurrentAnimation();
-        dissolveAmount = 0f;
-        UpdateShaderProperties();
-    }
-
-    public void SetNoiseParameters(float scale, float intensity)
-    {
-        noiseScale = scale;
-        noiseIntensity = Mathf.Clamp01(intensity);
-        UpdateShaderProperties();
     }
 
     private bool InitializeMaterial()
@@ -115,8 +100,12 @@ public class RadialDissolveController : MonoBehaviour
         }
     }
 
-    private IEnumerator AnimateDissolve(float duration)
+    private IEnumerator AnimateDecrease(float duration)
     {
+
+        dissolveAmount = 0f;
+        UpdateShaderProperties();
+
         float timer = 0f;
         float startAmount = dissolveAmount;
 
@@ -133,16 +122,29 @@ public class RadialDissolveController : MonoBehaviour
 
         dissolveAmount = 1f;
         UpdateShaderProperties();
+    }
 
-        if (loopAnimation)
+    private IEnumerator AnimateIncrease(float duration)
+    {
+        dissolveAmount = 1f;
+        UpdateShaderProperties();
+
+        float timer = 0f;
+        float startAmount = dissolveAmount;
+
+        while (timer < duration)
         {
-            yield return new WaitForSeconds(0.5f);
-            StartDissolveAnimation(duration);
+            timer += Time.deltaTime;
+            float progress = Mathf.Clamp01(timer / duration);
+
+            dissolveAmount = Mathf.Lerp(startAmount, 0f, dissolveCurve.Evaluate(progress));
+            UpdateShaderProperties();
+
+            yield return null;
         }
-        else
-        {
-            _dissolveCoroutine = null;
-        }
+
+        dissolveAmount = 0f;
+        UpdateShaderProperties();
     }
 
     private void OnDestroy()
@@ -157,4 +159,11 @@ public class RadialDissolveController : MonoBehaviour
                 DestroyImmediate(_material);
         }
     }
+
+}
+public enum DissolveType
+{
+    None,
+    Increase,
+    Decrease
 }
