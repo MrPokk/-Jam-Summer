@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -18,11 +19,11 @@ public class HasMoneyBuildCondition : AICondition
 {
     [Header("Has Money Build")]
     public int Count;
-    public Card Card;
+    public TypeCard Card;
 
     public override bool IsMet(EnemyMaster enemyMaster)
     {
-        return enemyMaster.MoneyFromBuild >= Count * Card.Price;
+        return enemyMaster.MoneyFromBuild >= Count * enemyMaster.GetCardType(Card).Price;
     }
 }
 [Serializable]
@@ -30,31 +31,45 @@ public class HasMoneyEntityCondition : AICondition
 {
     [Header("Has Money Entity")]
     public int Count;
-    public Card Card;
+    public TypeCard Card;
     public bool UseBuildMoney;
 
     public override bool IsMet(EnemyMaster enemyMaster)
     {
-        return enemyMaster.GetMoney(UseBuildMoney) >= Count * Card.Price;
+        return enemyMaster.GetMoney(UseBuildMoney) >= Count * enemyMaster.GetCardType(Card).Price;
+    }
+}
+[Serializable]
+public class CountCardCategoryCondition : AICondition
+{
+    [Header("Count Card Category")]
+    public CategoryCard Card;
+    public int CountMin;
+    public bool IsEnemy;
+
+    public override bool IsMet(EnemyMaster enemyMaster)
+    {
+        return GridMaster.Instance.GetCountCategory(Card, IsEnemy ? !enemyMaster.Team : enemyMaster.Team) >= CountMin;
     }
 }
 [Serializable]
 public class CountCardTypeCondition : AICondition
 {
     [Header("Count Card Type")]
+    public TypeCard Card;
     public int CountMin;
-    public Card Card;
     public bool IsEnemy;
 
     public override bool IsMet(EnemyMaster enemyMaster)
     {
-        return GridMaster.Instance.GetCountType(IsEnemy ? !enemyMaster.Team : enemyMaster.Team, Card) >= CountMin;
+        return GridMaster.Instance.GetCountType(Card, IsEnemy ? !enemyMaster.Team : enemyMaster.Team) >= CountMin;
     }
 }
 [Serializable]
-public class CountCardInSquareCondition : AICondition
+public class CountCardCategoryInSquareCondition : AICondition
 {
-    [Header("Count Card In Square")]
+    [Header("Count Card Category In Square")]
+    public CategoryCard CategoryCard;
     public int CountMin;
     public bool IsEnemy;
     public Vector2Int point1;
@@ -62,22 +77,49 @@ public class CountCardInSquareCondition : AICondition
 
     public override bool IsMet(EnemyMaster enemyMaster)
     {
-        return GridMaster.Instance.GetCountTypeInSquare<CardEntity>(point1, point2, IsEnemy ? !enemyMaster.Team : enemyMaster.Team) >= CountMin;
+        return GridMaster.Instance.GetCountCategoryInSquare(CategoryCard, point1, point2, IsEnemy ? !enemyMaster.Team : enemyMaster.Team) >= CountMin;
+    }
+}
+[Serializable]
+public class CountCardTypeInSquareCondition : AICondition
+{
+    [Header("Count Card Type In Square")]
+    public TypeCard TypeCard;
+    public int CountMin;
+    public bool IsEnemy;
+    public Vector2Int point1;
+    public Vector2Int point2;
+
+    public override bool IsMet(EnemyMaster enemyMaster)
+    {
+        return GridMaster.Instance.GetCountTypeInSquare(TypeCard, point1, point2, IsEnemy ? !enemyMaster.Team : enemyMaster.Team) >= CountMin;
     }
 }
 
 [Serializable]
 public class SpawnCardAction : AIAction
 {
-    public Card CardToSpawn;
+    public TypeCard CardToSpawn;
     public bool UseBuildMoney;
+    public bool UseBuildMoneyIfNecessary;
+    public int Count;
 
     public override bool Execute(EnemyMaster enemyMaster)
     {
-        bool res = enemyMaster.SpawnCard(CardToSpawn, enemyMaster.GetMoney(UseBuildMoney));
-        if (res && UseBuildMoney)
+        Card _cardToSpawn = enemyMaster.GetCardType(CardToSpawn);
+        bool _useBuildMoney = UseBuildMoney;
+        bool res = false;
+        for (int i = 0; i < Count; i++)
         {
-            enemyMaster.MoneyFromBuild -= CardToSpawn.Price;
+            if (UseBuildMoneyIfNecessary && enemyMaster.GetMoney(false) < _cardToSpawn.Price)
+            {
+                _useBuildMoney = true;
+            }
+            res = enemyMaster.SpawnCard(_cardToSpawn, enemyMaster.GetMoney(_useBuildMoney));
+            if (res && _useBuildMoney)
+            {
+                enemyMaster.MoneyFromBuild -= _cardToSpawn.Price;
+            }
         }
         return res;
 

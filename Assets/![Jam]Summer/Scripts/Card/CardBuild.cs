@@ -5,6 +5,7 @@ public class CardBuild : Card
 {
     public int Income;
     public int HealingHp;
+    public override CategoryCard Category => CategoryCard.Build;
     public override IEnumerator TurnEnd()
     {
         if (IsPlayer) GlobalState.GetRoot<Root>().Player.GiveMoney(Income);

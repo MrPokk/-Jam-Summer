@@ -49,7 +49,7 @@ public class ControlMaster : MonoBehaviour
             {
                 int posX = PosCastle.x;
                 int step;
-                for (step = 0; GridMaster.Instance.GetCountTypeInSquare<CardBuild>(new(posX, 0), new(posX, GridMaster.Instance.Size.y), Team) > 1 && step < LineMaxBuild; step++)
+                for (step = 0; GridMaster.Instance.GetCountTypeInSquare(TypeCard.Build, new(posX, 0), new(posX, GridMaster.Instance.Size.y), Team) > 1 && step < LineMaxBuild; step++)
                 {
                     posX += Team ? 1 : -1;
                 }

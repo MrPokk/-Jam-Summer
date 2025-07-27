@@ -15,144 +15,145 @@ MonoBehaviour:
   SaveMoneyBuild: 0.3
   CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
   Difficulty: 1
-  KeepProportions:
-    CardsWeight:
-    - Name: Bowman
-      Card: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
-      Weight: 0
-    - Name: Swordsman
-      Card: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
-      Weight: 0
   Behaviors:
   - Conditions:
-    - rid: 4547710433829847136
-    - rid: 4547710433829847138
+    - rid: 4547710453323923524
+    - rid: 4547710453323923525
     Actions:
-    - rid: 4547710433829847137
+    - rid: 4547710453323923526
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710433829847134
+    - rid: 4547710453323923528
+    - rid: 4547710453323923529
     Actions:
-    - rid: 4547710433829847135
+    - rid: 4547710453323923530
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710433829847139
+    - rid: 4547710453323923532
     Actions:
-    - rid: 4547710433829847140
+    - rid: 4547710453323923533
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710433829847126
+    - rid: 4547710453323923534
+    - rid: 4547710453323923537
     Actions:
-    - rid: 4547710433829847127
-    - rid: 4547710433829847129
-    - rid: 4547710433829847130
-    - rid: 4547710433829847146
+    - rid: 4547710453323923535
+    - rid: 4547710453323923536
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710433829847143
-    - rid: 4547710433829847145
-    - rid: 4547710433829847147
+    - rid: 4547710453323923538
     Actions:
-    - rid: 4547710433829847144
+    - rid: 4547710453323923539
+    - rid: 4547710453323923540
     ExitWhenExecuting: 0
-  UseDefaultBehavior: 0
   references:
     version: 2
     RefIds:
-    - rid: 4547710433829847126
+    - rid: 4547710453323923524
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 1
+        CountMin: 3
+        IsEnemy: 0
+    - rid: 4547710453323923525
       type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
       data:
         Inversion: 0
-        Count: 4
-        Card: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
-        UseBuildMoney: 0
-    - rid: 4547710433829847127
+        Count: 1
+        Card: 1
+        UseBuildMoney: 1
+    - rid: 4547710453323923526
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
-        CardToSpawn: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
-        UseBuildMoney: 0
-    - rid: 4547710433829847129
+        CardToSpawn: 1
+        UseBuildMoney: 1
+        UseBuildMoneyIfNecessary: 0
+        Count: 1
+    - rid: 4547710453323923528
+      type: {class: CountCardCategoryInSquareCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        CategoryCard: 2
+        CountMin: 1
+        IsEnemy: 1
+        point1: {x: 10, y: 0}
+        point2: {x: 16, y: 6}
+    - rid: 4547710453323923529
+      type: {class: CountCardCategoryInSquareCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        CategoryCard: 2
+        CountMin: 2
+        IsEnemy: 0
+        point1: {x: 10, y: 0}
+        point2: {x: 16, y: 6}
+    - rid: 4547710453323923530
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
-        CardToSpawn: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
+        CardToSpawn: 4
         UseBuildMoney: 0
-    - rid: 4547710433829847130
-      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
-      data:
-        CardToSpawn: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
-        UseBuildMoney: 0
-    - rid: 4547710433829847134
+        UseBuildMoneyIfNecessary: 1
+        Count: 2
+    - rid: 4547710453323923532
       type: {class: HasMoneyBuildCondition, ns: , asm: Assembly-CSharp}
       data:
         Inversion: 0
         Count: 1
-        Card: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
-    - rid: 4547710433829847135
+        Card: 1
+    - rid: 4547710453323923533
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
-        CardToSpawn: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
+        CardToSpawn: 1
         UseBuildMoney: 1
-    - rid: 4547710433829847136
-      type: {class: CountCardInSquareCondition, ns: , asm: Assembly-CSharp}
-      data:
-        Inversion: 0
-        CountMin: 1
-        IsEnemy: 1
-        point1: {x: 12, y: 0}
-        point2: {x: 16, y: 6}
-    - rid: 4547710433829847137
-      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
-      data:
-        CardToSpawn: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
-        UseBuildMoney: 1
-    - rid: 4547710433829847138
-      type: {class: CountCardInSquareCondition, ns: , asm: Assembly-CSharp}
-      data:
-        Inversion: 1
-        CountMin: 1
-        IsEnemy: 0
-        point1: {x: 11, y: 0}
-        point2: {x: 16, y: 6}
-    - rid: 4547710433829847139
-      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
-      data:
-        Inversion: 1
-        CountMin: 3
-        Card: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
-        IsEnemy: 0
-    - rid: 4547710433829847140
-      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
-      data:
-        CardToSpawn: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
-        UseBuildMoney: 0
-    - rid: 4547710433829847143
-      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
-      data:
-        Inversion: 1
-        CountMin: 1
-        Card: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
-        IsEnemy: 0
-    - rid: 4547710433829847144
-      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
-      data:
-        CardToSpawn: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
-        UseBuildMoney: 0
-    - rid: 4547710433829847145
+        UseBuildMoneyIfNecessary: 0
+        Count: 1
+    - rid: 4547710453323923534
       type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
       data:
         Inversion: 0
-        Count: 1
-        Card: {fileID: -171605351752458942, guid: 0d9ff0f84f5d80241868101a0aaf1018, type: 3}
+        Count: 3
+        Card: 3
         UseBuildMoney: 0
-    - rid: 4547710433829847146
+    - rid: 4547710453323923535
       type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
       data:
-        CardToSpawn: {fileID: -116514166275136589, guid: d2d33d78f3975e942851928e6dd7758f, type: 3}
+        CardToSpawn: 4
         UseBuildMoney: 0
-    - rid: 4547710433829847147
+        UseBuildMoneyIfNecessary: 0
+        Count: 2
+    - rid: 4547710453323923536
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 3
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 1
+    - rid: 4547710453323923537
       type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
       data:
-        Inversion: 0
-        CountMin: 2
-        Card: {fileID: 3062865646762970883, guid: 17150f928522430419846c82eea9b62e, type: 3}
+        Inversion: 1
+        Card: 1
+        CountMin: 8
         IsEnemy: 0
+    - rid: 4547710453323923538
+      type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Count: 7
+        Card: 3
+        UseBuildMoney: 1
+    - rid: 4547710453323923539
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 3
+        UseBuildMoney: 1
+        UseBuildMoneyIfNecessary: 0
+        Count: 2
+    - rid: 4547710453323923540
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 4
+        UseBuildMoney: 1
+        UseBuildMoneyIfNecessary: 0
+        Count: 5

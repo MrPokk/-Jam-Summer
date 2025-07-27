@@ -13,6 +13,7 @@ public class CardEntity : Card
     public int Damage;
     public float AttackDist;
     public bool IsFront;
+    public override CategoryCard Category => CategoryCard.Entity;
     public override void Init()
     {
         base.Init();

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3860954034406282918}
   - component: {fileID: 3362190912421575471}
   - component: {fileID: 3062865646762970883}
+  - component: {fileID: -1604488369261851129}
   m_Layer: 0
   m_Name: Build
   m_TagString: Untagged
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb022e8de66d294493d67943bac28d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 1
   _maxHealth: 5
   _health: 0
   _price: 20
@@ -108,3 +110,18 @@ MonoBehaviour:
   Priority: -1
   Income: 1
   HealingHp: 1
+--- !u!114 &-1604488369261851129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795698409203402912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92337a1e1f171ff4aa5ca095ec7e79b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprites:
+  - {fileID: 4943380675026707179, guid: ed33cc294045a6923bf9b1007a63f9d1, type: 3}
+  - {fileID: 1833554624, guid: ed33cc294045a6923bf9b1007a63f9d1, type: 3}

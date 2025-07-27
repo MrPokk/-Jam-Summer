@@ -60,7 +60,7 @@ public class AISettingEditor : Editor
             EditorGUILayout.EndHorizontal();
 
             // Отображение Behavior
-            DrawBehavior(_behaviorsProperty.GetArrayElementAtIndex(i), i);
+            DrawBehavior(_behaviorsProperty.GetArrayElementAtIndex(i));
 
             EditorGUILayout.EndVertical();
         }
@@ -74,7 +74,7 @@ public class AISettingEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void DrawBehavior(SerializedProperty behaviorProperty, int index)
+    private void DrawBehavior(SerializedProperty behaviorProperty)
     {
         SerializedProperty conditions = behaviorProperty.FindPropertyRelative("Conditions");
         SerializedProperty actions = behaviorProperty.FindPropertyRelative("Actions");
@@ -149,9 +149,11 @@ public class AISettingEditor : Editor
         menu.AddItem(new GUIContent("Has Enough Money Buy Card"), false, () => AddCondition<HasMoneyEntityCondition>(conditions));
         menu.AddItem(new GUIContent("Has Money Build Buy Card"), false, () => AddCondition<HasMoneyBuildCondition>(conditions));
         menu.AddItem(new GUIContent("Count Card Type"), false, () => AddCondition<CountCardTypeCondition>(conditions));
-        menu.AddItem(new GUIContent("Count Card In Square"), false, () => AddCondition<CountCardInSquareCondition>(conditions));
+        menu.AddItem(new GUIContent("Count Card Category"), false, () => AddCondition<CountCardCategoryCondition>(conditions));
+        menu.AddItem(new GUIContent("Count Card Category In Square Condition"), false, () => AddCondition<CountCardCategoryInSquareCondition>(conditions));
+        menu.AddItem(new GUIContent("Count Card Type In Square Condition"), false, () => AddCondition<CountCardTypeInSquareCondition>(conditions));
 
-        
+
 
         menu.ShowAsContext();
     }
