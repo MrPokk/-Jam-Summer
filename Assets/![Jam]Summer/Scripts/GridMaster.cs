@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -18,12 +17,13 @@ public class GridMaster : ObjectGridMono<Card>
 
     public IEnumerator Step()
     {
-        foreach (var card in _cards)
+        IEnumerable<Card> cardsForStep = Grid.GetDictionary().Values.OrderByDescending(x => x.Priority).OrderBy(x => x.IsPlayer);
+        foreach (var card in cardsForStep)
         {
             yield return card.TurnStart();
         }
 
-        foreach (var card in _cards)
+        foreach (var card in cardsForStep)
         {
             yield return card.TurnEnd();
         }
@@ -34,7 +34,7 @@ public class GridMaster : ObjectGridMono<Card>
         if (res && AutoPos)
         {
             Vector3 movePos = GridToWorldCentre(pos);
-            movePos.z = -pos.y;
+            movePos.z = pos.y;
             
             float distance = Vector2.Distance(value.transform.position, movePos);
             if (distance < 3)

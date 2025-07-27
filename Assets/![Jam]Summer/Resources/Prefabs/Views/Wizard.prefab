@@ -109,7 +109,7 @@ MonoBehaviour:
   _pos: {x: 0, y: 0}
   _isPlayer: 0
   Priority: 0
-  MaxStep: 2
+  MaxStep: 1
   Step: 2
   Damage: 5
   AttackDist: 2.9

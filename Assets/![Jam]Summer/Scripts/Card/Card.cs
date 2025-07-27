@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BitterCMS.CMSSystem;
-
+using DG.Tweening;
 using UnityEngine;
 
 public abstract class Card : CMSViewCore
@@ -52,7 +52,9 @@ public abstract class Card : CMSViewCore
     }
     public virtual void Dead()
     {
-        GridMaster.Instance.Delete(_pos);
+        GridMaster.Instance.Remove(_pos);
+        GetComponent<SpriteRenderer>().color = Color.red;
+        transform.DOLocalRotate(new Vector3(0, 0, -90), 0.4f).Play().OnComplete( () => { Destroy(gameObject); });
     }
 
     public abstract IEnumerator TurnStart();

@@ -12,17 +12,17 @@ public class PlayerMaster : ControlMaster
         MoneyChangeUI?.Invoke(Money);
         yield break;
     }
-    public bool SpawnEntity(int index)
+    public bool SpawnEntity(TypeCard card)
     {
-        bool res = SpawnCard(Cards.Entities[index]);
+        bool res = SpawnCard(Cards.Entities.Find(x => x.Type == card));
         if (res)
             MoneyChangeUI?.Invoke(Money);
         return res;
     }
 
-    public bool SpawnBuild(int index)
+    public bool SpawnBuild(TypeCard card)
     {
-        bool res = SpawnCard(Cards.Builds[index]);
+        bool res = SpawnCard(Cards.Builds.Find(x => x.Type == card));
         if (res)
             MoneyChangeUI?.Invoke(Money);
         return res;

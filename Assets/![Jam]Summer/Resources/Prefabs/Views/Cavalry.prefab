@@ -103,15 +103,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 6
-  _maxHealth: 7
+  _maxHealth: 15
   _health: 0
-  _price: 20
+  _price: 26
   _pos: {x: 0, y: 0}
   _isPlayer: 0
   Priority: 3
   MaxStep: 4
   Step: 2
-  Damage: 2
+  Damage: 3
   AttackDist: 1
   IsFront: 1
 --- !u!114 &4562153114118918489
