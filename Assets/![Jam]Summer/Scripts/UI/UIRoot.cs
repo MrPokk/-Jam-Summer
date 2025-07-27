@@ -32,7 +32,7 @@ public class UIRoot : MonoBehaviour
         _canvasRoot.gameObject.SetActive(false);
         _hudRoot.gameObject.SetActive(true);
 
-        UiHoverToolkit.HideTooltip();
+        UiHoverToolkit.Init();
 
         _root = GlobalState.GetRoot<Root>();
         _moneyText.text = _root.Player.Money.ToString();

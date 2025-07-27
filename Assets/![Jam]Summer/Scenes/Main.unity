@@ -5606,6 +5606,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2076466634}
     m_Modifications:
+    - target: {fileID: 55495908568390120, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70.4057
+      objectReference: {fileID: 0}
+    - target: {fileID: 55495908568390120, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.4054
+      objectReference: {fileID: 0}
+    - target: {fileID: 817488306980367954, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3919741230113817826, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
       propertyPath: m_Name
       value: ToolkitCanvas

@@ -1,8 +1,9 @@
 using BitterCMS.UnityIntegration;
 using UnityEngine;
+using UnityEngine.EventSystems; // Добавляем это пространство имен
 
 [DisallowMultipleComponent]
-public class UICardButton : MonoBehaviour
+public class UICardButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private UIRoot _uIRoot;
     [SerializeField] private TypeCard _cardType;
@@ -12,15 +13,13 @@ public class UICardButton : MonoBehaviour
         _uIRoot = GlobalState.GetRoot<Root>().UIRoot;
     }
 
-    public void OnPointerEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("OnPointerEnter");
         _uIRoot.UiHoverToolkit.StartHover(_cardType);
     }
 
-    public void OnPointerExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
-         Debug.Log("OnPointerExit");
         _uIRoot.UiHoverToolkit.EndHover();
     }
 }

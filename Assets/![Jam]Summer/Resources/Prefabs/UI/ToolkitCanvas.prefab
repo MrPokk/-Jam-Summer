@@ -239,12 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd11a4135292905b901886b879fcef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiRoot: {fileID: 0}
   _nameText: {fileID: 5946703877935138241}
   _healthText: {fileID: 8160251938042614552}
   _attackText: {fileID: 9178308209600100128}
   _descriptionText: {fileID: 817488306980367954}
-  _hoverDelay: 0.5
+  _offset: {x: 0, y: -95}
 --- !u!1 &3105492253416833232
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,19 +710,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.33
+  m_fontSize: 20
   m_fontSizeBase: 27.33
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

@@ -16,10 +16,6 @@ public class Root : RootMonoBehavior
 
     protected override void GlobalStart()
     {
-        CoroutineUtility.Run(LoadGame());
-    }
-    private IEnumerator LoadGame()
-    {
         Player = GetComponent<PlayerMaster>();
         Enemy = GetComponent<EnemyMaster>();
 
@@ -28,7 +24,10 @@ public class Root : RootMonoBehavior
         Enemy.Init();
 
         UIRoot.InitializeUI();
-
+        CoroutineUtility.Run(LoadGame());
+    }
+    private IEnumerator LoadGame()
+    {
         yield return LoadAnimation(4f);
         UIRoot.ToggleCanvas();
 
