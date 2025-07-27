@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
-  _maxHealth: 5
+  _maxHealth: 10
   _health: 0
   _price: 20
   _pos: {x: 0, y: 0}

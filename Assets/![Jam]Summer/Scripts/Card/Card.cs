@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using BitterCMS.CMSSystem;
+using BitterCMS.UnityIntegration.Utility;
 using DG.Tweening;
 using UnityEngine;
 
@@ -21,6 +20,9 @@ public abstract class Card : CMSViewCore
     protected bool _isPlayer;
     public int Priority;
 
+    protected SpriteRenderer _spriteRenderer;
+    protected bool _isAnimDamage; 
+
     public virtual TypeCard Type => _type;
     public virtual CategoryCard Category => CategoryCard.None;
     public int MaxHealth => _maxHealth;
@@ -31,10 +33,12 @@ public abstract class Card : CMSViewCore
 
     public virtual void Init()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _health = _maxHealth;
     }
     public virtual void TakeDamage(int damage)
     {
+        CoroutineUtility.Run(TakeDamageAnim());
         _health -= damage;
         if (_health <= 0)
         {
@@ -53,10 +57,20 @@ public abstract class Card : CMSViewCore
     public virtual void Dead()
     {
         GridMaster.Instance.Remove(_pos);
-        GetComponent<SpriteRenderer>().color = Color.red;
-        transform.DOLocalRotate(new Vector3(0, 0, -90), 0.4f).Play().OnComplete( () => { Destroy(gameObject); });
+        _spriteRenderer.color = Color.red;
+        transform.DOLocalRotate(new Vector3(0, 0, -90), 0.5f).Play().OnComplete( () => { Destroy(gameObject); });
     }
-
+    public virtual IEnumerator TakeDamageAnim()
+    {
+        if (_isAnimDamage)
+            yield break;
+        _isAnimDamage = true;
+        _spriteRenderer.color = Color.red;
+        yield return transform.DOShakePosition(0.3f, .7f, 3).Play().WaitForCompletion();
+        _spriteRenderer.color = Color.white;
+        _isAnimDamage = false;
+        yield break;
+    }
     public abstract IEnumerator TurnStart();
     public abstract IEnumerator TurnEnd();
     public virtual void SetPos(Vector2Int pos) => _pos = pos;
