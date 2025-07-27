@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using BitterCMS.CMSSystem;
-using BitterCMS.UnityIntegration.Utility;
 using DG.Tweening;
 using UnityEngine;
 

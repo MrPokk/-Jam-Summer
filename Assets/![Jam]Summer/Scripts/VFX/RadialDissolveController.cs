@@ -9,6 +9,7 @@ public class RadialDissolveController : MonoBehaviour
     private static readonly int NoiseScaleID = Shader.PropertyToID("_NoiseScale");
     private static readonly int NoiseIntensityID = Shader.PropertyToID("_NoiseIntensity");
 
+    private const float MaxDissolveAmount = 0.5f;
     private float dissolveAmount = 0f;
     private float dissolveSpeed = 0.5f;
 
@@ -52,7 +53,7 @@ public class RadialDissolveController : MonoBehaviour
 
     public void SetDissolveAmount(float amount)
     {
-        dissolveAmount = Mathf.Clamp01(amount);
+        dissolveAmount = Mathf.Clamp(amount, 0f, MaxDissolveAmount);
         UpdateShaderProperties();
     }
 
@@ -102,8 +103,7 @@ public class RadialDissolveController : MonoBehaviour
 
     private IEnumerator AnimateDecrease(float duration)
     {
-
-        dissolveAmount = 0f;
+        SetDissolveAmount(0);
         UpdateShaderProperties();
 
         float timer = 0f;
@@ -114,19 +114,19 @@ public class RadialDissolveController : MonoBehaviour
             timer += Time.deltaTime;
             float progress = Mathf.Clamp01(timer / duration);
 
-            dissolveAmount = Mathf.Lerp(startAmount, 1f, dissolveCurve.Evaluate(progress));
+            dissolveAmount = Mathf.Lerp(startAmount, MaxDissolveAmount, dissolveCurve.Evaluate(progress));
             UpdateShaderProperties();
 
             yield return null;
         }
 
-        dissolveAmount = 1f;
+        SetDissolveAmount(MaxDissolveAmount);
         UpdateShaderProperties();
     }
 
     private IEnumerator AnimateIncrease(float duration)
     {
-        dissolveAmount = 1f;
+        SetDissolveAmount(MaxDissolveAmount);
         UpdateShaderProperties();
 
         float timer = 0f;
@@ -143,7 +143,7 @@ public class RadialDissolveController : MonoBehaviour
             yield return null;
         }
 
-        dissolveAmount = 0f;
+        SetDissolveAmount(0);
         UpdateShaderProperties();
     }
 
@@ -159,8 +159,8 @@ public class RadialDissolveController : MonoBehaviour
                 DestroyImmediate(_material);
         }
     }
-
 }
+
 public enum DissolveType
 {
     None,

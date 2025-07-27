@@ -7,12 +7,8 @@ public class CardCastle : CardBuild
     {
         base.Dead();
         if (IsPlayer)
-        {
-            CoroutineUtility.Run(GlobalState.GetRoot<Root>().Lose());
-        }
+            CoroutineUtility.Run(GlobalState.GetRoot<Root>().HandleRoundEnd(false));
         else
-        {
-            CoroutineUtility.Run(GlobalState.GetRoot<Root>().Win());
-        }
+            CoroutineUtility.Run(GlobalState.GetRoot<Root>().HandleRoundEnd(true));
     }
 }

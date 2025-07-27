@@ -2,7 +2,7 @@ Shader "Custom/PixelRadialBlackDissolve"
 {
     Properties
     {
-        _DissolveAmount ("Dissolve Amount", Range(0, 1)) = 0
+        _DissolveAmount ("Dissolve Amount", Range(0, 0.5)) = 0
         _NoiseScale ("Noise Scale", Float) = 10
         _NoiseIntensity ("Noise Intensity", Range(0, 1)) = 0.2
         _PixelSize ("Pixel Size", Int) = 10
