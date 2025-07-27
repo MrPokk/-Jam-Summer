@@ -109,10 +109,10 @@ MonoBehaviour:
   _pos: {x: 0, y: 0}
   _isPlayer: 0
   Priority: 0
-  MaxStep: 1
+  MaxStep: 2
   Step: 2
   Damage: 5
-  AttackDist: 2.9
+  AttackDist: 3.9
   IsFront: 0
 --- !u!114 &4562153114118918489
 MonoBehaviour:

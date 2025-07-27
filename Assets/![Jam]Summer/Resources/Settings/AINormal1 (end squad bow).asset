@@ -10,27 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a85c76f1e363090408440f2b4ffba8fc, type: 3}
-  m_Name: AIEasy1
+  m_Name: AINormal1 (end squad bow)
   m_EditorClassIdentifier: 
   SaveMoneyBuild: 0.6
   CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
-  Difficulty: 0
+  Difficulty: 1
   Behaviors:
+  - Conditions:
+    - rid: 4547710453323923550
+    Actions:
+    - rid: 4547710453323923551
+    ExitWhenExecuting: 0
   - Conditions:
     - rid: 4547710453323923541
     Actions:
     - rid: 4547710453323923542
     ExitWhenExecuting: 0
   - Conditions:
-    - rid: 4547710453323923544
-    Actions:
-    - rid: 4547710453323923545
-    ExitWhenExecuting: 0
-  - Conditions:
     - rid: 4547710453323923546
     - rid: 4547710453323923548
     Actions:
     - rid: 4547710453323923549
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710453323923552
+    Actions:
+    - rid: 4547710453323923553
+    ExitWhenExecuting: 0
+  - Conditions:
+    - rid: 4547710453323923554
+    - rid: 4547710453323923557
+    Actions:
+    - rid: 4547710453323923555
     ExitWhenExecuting: 0
   references:
     version: 2
@@ -48,19 +59,6 @@ MonoBehaviour:
         UseBuildMoney: 1
         UseBuildMoneyIfNecessary: 0
         Count: 1
-    - rid: 4547710453323923544
-      type: {class: HasEnoughMoneyCondition, ns: , asm: Assembly-CSharp}
-      data:
-        Inversion: 0
-        MinimumMoney: 30
-        UseBuildMoney: 0
-    - rid: 4547710453323923545
-      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
-      data:
-        CardToSpawn: 4
-        UseBuildMoney: 0
-        UseBuildMoneyIfNecessary: 0
-        Count: 1
     - rid: 4547710453323923546
       type: {class: CountCardCategoryInSquareCondition, ns: , asm: Assembly-CSharp}
       data:
@@ -73,7 +71,7 @@ MonoBehaviour:
     - rid: 4547710453323923548
       type: {class: CountCardCategoryInSquareCondition, ns: , asm: Assembly-CSharp}
       data:
-        Inversion: 0
+        Inversion: 1
         CategoryCard: 2
         CountMin: 1
         IsEnemy: 0
@@ -86,3 +84,52 @@ MonoBehaviour:
         UseBuildMoney: 0
         UseBuildMoneyIfNecessary: 1
         Count: 2
+    - rid: 4547710453323923550
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 1
+        CountMin: 2
+        IsEnemy: 0
+    - rid: 4547710453323923551
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 1
+        UseBuildMoney: 1
+        UseBuildMoneyIfNecessary: 0
+        Count: 1
+    - rid: 4547710453323923552
+      type: {class: CountCardCategoryCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 1
+        Card: 2
+        CountMin: 1
+        IsEnemy: 0
+    - rid: 4547710453323923553
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 4
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 1
+    - rid: 4547710453323923554
+      type: {class: CountCardTypeCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Card: 1
+        CountMin: 6
+        IsEnemy: 0
+    - rid: 4547710453323923555
+      type: {class: SpawnCardAction, ns: , asm: Assembly-CSharp}
+      data:
+        CardToSpawn: 3
+        UseBuildMoney: 0
+        UseBuildMoneyIfNecessary: 0
+        Count: 3
+    - rid: 4547710453323923557
+      type: {class: HasMoneyEntityCondition, ns: , asm: Assembly-CSharp}
+      data:
+        Inversion: 0
+        Count: 3
+        Card: 3
+        UseBuildMoney: 0

@@ -189,7 +189,7 @@ MonoBehaviour:
   LineFront: 13
   LineBack: 14
   LineMaxBuild: 6
-  Setting: {fileID: 11400000, guid: aafdf805354b57d47bf3948ec9e16122, type: 2}
+  Setting: {fileID: 11400000, guid: 27781c2976ca28b41a10c11bc89ef675, type: 2}
   MoneyFromBuild: 0
   BowOnSword: 0
 --- !u!114 &4632351

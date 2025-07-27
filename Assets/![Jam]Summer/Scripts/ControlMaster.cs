@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -53,8 +54,20 @@ public class ControlMaster : MonoBehaviour
                 {
                     posX += Team ? 1 : -1;
                 }
-                if (step == LineMaxBuild) posX = PosCastle.x;
-                bool res = SpawnCardToGridLine(build, posX);
+                if (step == LineMaxBuild) return false;
+
+                List<Vector2Int> empty = new();
+                Vector2Int pos = new Vector2Int(posX, 0);
+                for (pos.y = 0; pos.y < MaxY; pos.y++)
+                {
+                    if (!GridMaster.Instance.TryGetAtPos(pos, out var _null) &&
+                         GridMaster.Instance.GetCountTypeInSquare(TypeCard.Build, pos + Vector2Int.left, pos + Vector2Int.right, Team) == 0)
+                    {
+                        empty.Add(pos);
+                    }
+                }
+                if (empty.Count == 0) return false;
+                bool res = SpawnCardToGrid(build, empty[Random.Range(0, empty.Count)]);
                 if (res) Money -= build.Price;
                 return res;
             }
