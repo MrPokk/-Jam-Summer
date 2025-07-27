@@ -18,8 +18,7 @@ public class Root : RootMonoBehavior
     public CardList CardList;
 
     [field: SerializeField] public List<AISetting> AISettingsSetups { get; private set; } = new();
-    private int _roundCurrent = 0;
-
+    public int RoundCurrent { get; private set; } = 0 ;
 
     [Header("Player and Enemy")]
     public PlayerMaster Player;
@@ -27,8 +26,6 @@ public class Root : RootMonoBehavior
 
     protected override void GlobalStart()
     {
-        var fistRound = AISettingsSetups.FirstOrDefault();
-
         if (!AISettingsSetups.Any())
             throw new Exception("AISettingsSetups is empty");
 
@@ -37,34 +34,21 @@ public class Root : RootMonoBehavior
 
         Grid.Init();
         Player.Init();
-        Enemy.Init(fistRound);
+        Enemy.Init(AISettingsSetups.FirstOrDefault());
 
         UIRoot.InitializeUI();
-        CoroutineUtility.Run(PreLoadRound());
+        StartCoroutine(StartRound());
     }
 
-    private IEnumerator PreLoadRound()
+    private IEnumerator StartRound()
     {
-        yield return LoadAnimationRunRound(3f);
-        UIRoot.ToggleCanvas();
-
-        CoroutineUtility.Run(Loop());
-        yield break;
+        UIRoot.ForcedLoseCanvas(false);
+        yield return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(3f, DissolveType.Decrease);
+        UIRoot.ResetUI();
+        StartCoroutine(GameLoop());
     }
 
-    private Coroutine LoadAnimationRunRound(float duration)
-    {
-        UIRoot.HudRoot.RadialDissolveController.gameObject.SetActive(true);
-        return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(duration, DissolveType.Decrease);
-    }
-
-    private Coroutine LoadAnimationEndRound(float duration)
-    {
-        UIRoot.HudRoot.RadialDissolveController.gameObject.SetActive(true);
-        return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(duration, DissolveType.Increase);
-    }
-
-    private IEnumerator Loop()
+    private IEnumerator GameLoop()
     {
         while (Grid.GetCountType<CardCastle>() == 2)
         {
@@ -75,74 +59,61 @@ public class Root : RootMonoBehavior
         }
     }
 
-    //___Относительно_игрока___
-    public IEnumerator Win()
+    public void RestartBattle()
     {
-        yield return LoadAnimationEndRound(3f);
-        UIRoot.ToggleCanvas();
-
-        _roundCurrent++;
-        if (_roundCurrent == AISettingsSetups.Count)
-        {
-            yield return EndGame();
-            yield break;
-        }
-        LoadBattleEnemy(_roundCurrent);
-        yield break;
+        LoadBattle(RoundCurrent);
     }
 
-    public void LoadLastEnemy()
+    public void ChangeEnemy(bool next)
     {
-        _roundCurrent--;
-        if (_roundCurrent < 0)
-        {
-            _roundCurrent = 0;
-        }
-        CoroutineUtility.Run(SwapEnemy(_roundCurrent));
-        return;
-    }
-    public void LoadNextEnemy()
-    {
-        _roundCurrent++;
-        if (_roundCurrent >= AISettingsSetups.Count)
-        {
-            _roundCurrent = AISettingsSetups.Count - 1;
-        }
-        CoroutineUtility.Run(SwapEnemy(_roundCurrent));
-        return;
-    }
-    public IEnumerator SwapEnemy(int index)
-    {
-        yield return LoadAnimationEndRound(3f);
-        UIRoot.ToggleCanvas();
-        LoadBattleEnemy(index);
-        yield break;
+        RoundCurrent = Mathf.Clamp(RoundCurrent + (next ? 1 : -1), 0, AISettingsSetups.Count - 1);
+        StartCoroutine(SwapEnemy());
     }
 
-    public void RestartBattle() => LoadBattleEnemy(_roundCurrent);
-    private void LoadBattleEnemy(int index)
+    private void LoadBattle(int index)
     {
-        _roundCurrent = index;
-        var currentSetupRound = AISettingsSetups[_roundCurrent];
+        RoundCurrent = index;
         Grid.Clear();
         Player.Init();
-        Enemy.Init(currentSetupRound);
+        Enemy.Init(AISettingsSetups[RoundCurrent]);
 
         Player.Money = 0;
         Enemy.Money = 0;
-        CoroutineUtility.Run(PreLoadRound());
+        StartCoroutine(StartRound());
     }
 
-    public IEnumerator Lose()
+    public IEnumerator HandleRoundEnd(bool isWin)
     {
-        UIRoot.ToggleManagementPanel();
-        yield return LoadAnimationEndRound(4f);
-        UIRoot.ShowLoseCanvas();
 
-        yield break;
+        if (isWin)
+        {
+            UIRoot.ForcedCanvas(false);
+
+            yield return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(isWin ? 3f : 4f, DissolveType.Increase);
+
+            if (++RoundCurrent >= AISettingsSetups.Count)
+            {
+                yield return EndGame();
+                yield break;
+            }
+            LoadBattle(RoundCurrent);
+        }
+        else
+        {
+            UIRoot.ForcedManagementPanel(false);
+            yield return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(isWin ? 3f : 4f, DissolveType.Increase);
+            UIRoot.ForcedLoseCanvas(true);
+        }
     }
 
-    public IEnumerator EndGame()
+    private IEnumerator SwapEnemy()
+    {
+        yield return UIRoot.HudRoot.RadialDissolveController.DissolveAnimation(3f, DissolveType.Increase);
+        UIRoot.ForcedCanvas(false);
+        LoadBattle(RoundCurrent);
+    }
+
+    private IEnumerator EndGame()
     {
         yield break;
     }

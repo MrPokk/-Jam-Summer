@@ -13,21 +13,21 @@ public class UICastleHealths : MonoBehaviour
     private void Start()
     {
         _cardCastle = GetComponentInParent<CardCastle>();
-        _health = _cardCastle.Health;
 
         OnHealthChanged();
     }
 
     private void Update()
     {
-        if (_health != _cardCastle.Health)
-        {
-            OnHealthChanged();
-        }
+        OnHealthChanged();
     }
 
     private void OnHealthChanged()
     {
-        _healthText.text = $"HP: {_cardCastle.Health}";
+        if (_health != _cardCastle.Health || _health == 0)
+        {
+            _health = _cardCastle.Health;
+            _healthText.text = $"HP: {_health}";
+        }
     }
 }

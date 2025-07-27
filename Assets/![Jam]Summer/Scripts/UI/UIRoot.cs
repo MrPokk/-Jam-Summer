@@ -12,7 +12,7 @@ public class UIRoot : MonoBehaviour
     [SerializeField] private Canvas _canvasRoot;
     [SerializeField] private UIHoverToolkit _uIHoverToolkit;
     [SerializeField] private UIManagementPanel _uIManagementPanel;
-    [SerializeField] private UILoseCanvas _uILoseCanvas;
+    [SerializeField] private UILosePanel _uILosePanel;
 
     [SerializeField] private HUD _hudRoot;
     private Root _root;
@@ -28,14 +28,21 @@ public class UIRoot : MonoBehaviour
         _uIHoverToolkit.Init();
         _uIManagementPanel.Init();
 
-        _canvasRoot.gameObject.SetActive(false);
-        _hudRoot.gameObject.SetActive(true);
-        _uILoseCanvas.gameObject.SetActive(false);
+        ForcedCanvas(false);
+        HideToolkit();
+        ForcedLoseCanvas(false);
 
         _changesTextInitialPosition = _uIManagementPanel.MoneyPanel.ChangesMoneyContainer.GetPosition();
         _changesTextInitialScale = _uIManagementPanel.MoneyPanel.ChangesMoneyContainer.GetScale();
 
         SubscribeToEvents();
+    }
+
+    public void ResetUI()
+    {
+        ForcedLoseCanvas(false);
+        ForcedCanvas(true);
+        ForcedManagementPanel(true);
     }
 
     public DescriptionEntityComponent GetCardDescription(TypeCard cardType)
@@ -119,13 +126,20 @@ public class UIRoot : MonoBehaviour
         sequence.Play();
     }
 
+    public void ForcedManagementPanel(bool active) => _uIManagementPanel.gameObject.SetActive(active);
+    public void ForcedCanvas(bool active) => _canvasRoot.gameObject.SetActive(active);
+    public void ForcedHUD(bool active) => _hudRoot.gameObject.SetActive(active);
+    public void ForcedLoseCanvas(bool active) => _uILosePanel.gameObject.SetActive(active);
+    public void ShowToolkit(TypeCard cardType) => _uIHoverToolkit.StartHover(cardType);
+    public void HideToolkit() => _uIHoverToolkit.EndHover();
+
+    public void RestartLevel() => _root.RestartBattle();
+
     public void ToggleManagementPanel() => _uIManagementPanel.gameObject.SetActive(!_uIManagementPanel.gameObject.activeSelf);
     public void ToggleCanvas() => _canvasRoot.gameObject.SetActive(!_canvasRoot.gameObject.activeSelf);
     public void ToggleHUD() => _hudRoot.gameObject.SetActive(!_hudRoot.gameObject.activeSelf);
-    public void ShowLoseCanvas() => _uILoseCanvas.gameObject.SetActive(true);
     public void ToolkitHover(TypeCard cardType) => _uIHoverToolkit.StartHover(cardType);
     public void ToolkitHoverEnd() => _uIHoverToolkit.EndHover();
-    public void RestartLevel() => _root.RestartBattle();
     public void SpawnHouseUI() => _root.Player.SpawnBuild(TypeCard.Build);
     public void SpawnBowmanUI() => _root.Player.SpawnEntity(TypeCard.Bowman);
     public void SpawnSwordsmanUI() => _root.Player.SpawnEntity(TypeCard.Swordsman);
