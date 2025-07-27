@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Root : RootMonoBehavior
 {
-    [SerializeField]
-    private UIRoot _uIRoot;
+    [field: SerializeField]
+    public UIRoot UIRoot { get; private set; }
 
     public GridMaster Grid;
     public CardList CardList;
@@ -27,10 +27,10 @@ public class Root : RootMonoBehavior
         Player.Init();
         Enemy.Init();
 
-        _uIRoot.InitializeUI();
+        UIRoot.InitializeUI();
 
         yield return LoadAnimation(4f);
-        _uIRoot.ToggleCanvas();
+        UIRoot.ToggleCanvas();
 
         CoroutineUtility.Run(Loop());
         yield break;
@@ -38,8 +38,8 @@ public class Root : RootMonoBehavior
 
     private Coroutine LoadAnimation(float duration = -1f)
     {
-        _uIRoot.HudRoot.RadialDissolveController.gameObject.SetActive(true);
-        return _uIRoot.HudRoot.RadialDissolveController.StartDissolveAnimation(duration);
+        UIRoot.HudRoot.RadialDissolveController.gameObject.SetActive(true);
+        return UIRoot.HudRoot.RadialDissolveController.StartDissolveAnimation(duration);
     }
 
 

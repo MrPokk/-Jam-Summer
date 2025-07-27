@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3362190912421575471}
   - component: {fileID: 3062865646762970883}
   - component: {fileID: -1604488369261851129}
+  - component: {fileID: -4660873340183308515}
   m_Layer: 0
   m_Name: Build
   m_TagString: Untagged
@@ -125,3 +126,17 @@ MonoBehaviour:
   _sprites:
   - {fileID: 4943380675026707179, guid: ed33cc294045a6923bf9b1007a63f9d1, type: 3}
   - {fileID: 1833554624, guid: ed33cc294045a6923bf9b1007a63f9d1, type: 3}
+--- !u!114 &-4660873340183308515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795698409203402912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0545e6c3752b22f82172e0272d8192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityName>k__BackingField: Entity
+  <Description>k__BackingField: Entity description

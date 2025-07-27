@@ -8,7 +8,9 @@ using System.Linq;
 public class UIRoot : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Canvas _canvasRoot;    
+    [SerializeField] private Canvas _canvasRoot;
+    [field: SerializeField] public UIHoverToolkit UiHoverToolkit { get; private set; }
+
     [SerializeField] private HUD _hudRoot;
     [SerializeField] private TMP_Text _priceBuildText;
     [SerializeField] private TMP_Text _priceBowmanText;
@@ -27,6 +29,8 @@ public class UIRoot : MonoBehaviour
     {
         _canvasRoot.gameObject.SetActive(false);
         _hudRoot.gameObject.SetActive(true);
+
+        UiHoverToolkit.HideTooltip();
 
         _root = GlobalState.GetRoot<Root>();
         _moneyText.text = _root.Player.Money.ToString();
@@ -78,6 +82,23 @@ public class UIRoot : MonoBehaviour
         _moneyText.text = newMoney.ToString();
 
         PlayMoneyChangeAnimation(difference);
+    }
+
+    public DescriptionEntityComponent GetCardDescription(TypeCard cardType)
+    {
+        var entity = _root.Player.Cards.Entities.Find(e => e.Type == cardType);
+        if (entity != null)
+        {
+            return entity.GetComponent<DescriptionEntityComponent>();
+        }
+
+        var build = _root.Player.Cards.Builds.Find(e => e.Type == cardType);
+        if (build != null)
+        {
+            return build.GetComponent<DescriptionEntityComponent>();
+        }
+
+        return null;
     }
 
     private void PlayMoneyChangeAnimation(int difference)

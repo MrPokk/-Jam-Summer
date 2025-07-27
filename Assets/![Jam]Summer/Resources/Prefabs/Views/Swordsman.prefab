@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4315088164581038935}
   - component: {fileID: 7789838131935717979}
   - component: {fileID: 1585319681951946950}
+  - component: {fileID: -3704183355914271551}
   m_Layer: 0
   m_Name: Swordsman
   m_TagString: Untagged
@@ -126,3 +127,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _replacementColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &-3704183355914271551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442898396003440809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0545e6c3752b22f82172e0272d8192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityName>k__BackingField: Entity
+  <Description>k__BackingField: Entity description

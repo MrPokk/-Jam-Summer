@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c891e87f5bd865fa14129976926d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uIRoot: {fileID: 299621084}
+  <UIRoot>k__BackingField: {fileID: 299621084}
   Grid: {fileID: 935691424}
   CardList: {fileID: 11400000, guid: 87482989b69a57f4d87f6d7594d7f512, type: 2}
   Player: {fileID: 4632351}
@@ -189,7 +189,7 @@ MonoBehaviour:
   LineFront: 13
   LineBack: 14
   LineMaxBuild: 6
-  Setting: {fileID: 11400000, guid: ff12bfd5504e6964e8602fe857c9d4fe, type: 2}
+  Setting: {fileID: 11400000, guid: f86f24a80850ab046a4a6cf25c37e119, type: 2}
   MoneyFromBuild: 0
   BowOnSword: 0
 --- !u!114 &4632351
@@ -2034,8 +2034,9 @@ GameObject:
   - component: {fileID: 162495261}
   - component: {fileID: 162495260}
   - component: {fileID: 162495259}
+  - component: {fileID: 162495262}
   m_Layer: 5
-  m_Name: SpawnHouse
+  m_Name: SpawnBuild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2157,6 +2158,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162495257}
   m_CullTransparentMesh: 1
+--- !u!114 &162495262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162495257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50911583b07630de8cc597e67d6f8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardType: 1
 --- !u!1 &237957762
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2439,7 @@ GameObject:
   - component: {fileID: 278928596}
   - component: {fileID: 278928595}
   - component: {fileID: 278928594}
+  - component: {fileID: 278928597}
   m_Layer: 5
   m_Name: SpawnBowman
   m_TagString: Untagged
@@ -2548,6 +2563,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278928592}
   m_CullTransparentMesh: 1
+--- !u!114 &278928597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278928592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50911583b07630de8cc597e67d6f8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardType: 3
 --- !u!1 &299621082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2595,6 +2623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasRoot: {fileID: 2076466637}
+  <UiHoverToolkit>k__BackingField: {fileID: 6561430995381174614}
   _hudRoot: {fileID: 1867203855}
   _priceBuildText: {fileID: 1146704014}
   _priceBowmanText: {fileID: 1892565198}
@@ -2613,7 +2642,7 @@ GameObject:
   - component: {fileID: 335563177}
   - component: {fileID: 335563176}
   m_Layer: 5
-  m_Name: PriceHouse
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2899,8 +2928,9 @@ GameObject:
   - component: {fileID: 432344414}
   - component: {fileID: 432344413}
   - component: {fileID: 432344412}
+  - component: {fileID: 432344415}
   m_Layer: 5
-  m_Name: SpawnMagic
+  m_Name: SpawnWizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3022,6 +3052,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432344410}
   m_CullTransparentMesh: 1
+--- !u!114 &432344415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432344410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50911583b07630de8cc597e67d6f8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardType: 5
 --- !u!1 &502879677
 GameObject:
   m_ObjectHideFlags: 0
@@ -3534,7 +3577,7 @@ GameObject:
   - component: {fileID: 758636195}
   - component: {fileID: 758636194}
   m_Layer: 5
-  m_Name: PriceSwordsman
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3866,8 +3909,9 @@ GameObject:
   - component: {fileID: 1063394620}
   - component: {fileID: 1063394619}
   - component: {fileID: 1063394618}
+  - component: {fileID: 1063394621}
   m_Layer: 5
-  m_Name: SpawnHorse
+  m_Name: SpawnCavalry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3989,6 +4033,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063394616}
   m_CullTransparentMesh: 1
+--- !u!114 &1063394621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063394616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50911583b07630de8cc597e67d6f8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardType: 6
 --- !u!1 &1073108939
 GameObject:
   m_ObjectHideFlags: 0
@@ -4001,7 +4058,7 @@ GameObject:
   - component: {fileID: 1073108942}
   - component: {fileID: 1073108941}
   m_Layer: 5
-  m_Name: PriceHouse
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4212,7 +4269,7 @@ GameObject:
   - component: {fileID: 1146704015}
   - component: {fileID: 1146704014}
   m_Layer: 5
-  m_Name: PriceHouse
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4709,6 +4766,7 @@ GameObject:
   - component: {fileID: 1437529814}
   - component: {fileID: 1437529813}
   - component: {fileID: 1437529812}
+  - component: {fileID: 1437529815}
   m_Layer: 5
   m_Name: SpawnSwordsman
   m_TagString: Untagged
@@ -4832,6 +4890,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437529810}
   m_CullTransparentMesh: 1
+--- !u!114 &1437529815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437529810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50911583b07630de8cc597e67d6f8f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardType: 4
 --- !u!1 &1460164115
 GameObject:
   m_ObjectHideFlags: 0
@@ -5253,7 +5324,7 @@ GameObject:
   - component: {fileID: 1892565199}
   - component: {fileID: 1892565198}
   m_Layer: 5
-  m_Name: PriceBowman
+  m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5454,6 +5525,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1621838579}
+  - {fileID: 6561430995381174613}
   m_Father: {fileID: 299621083}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5524,6 +5596,119 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1001 &6561430995381174612
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2076466634}
+    m_Modifications:
+    - target: {fileID: 3919741230113817826, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_Name
+      value: ToolkitCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+--- !u!224 &6561430995381174613 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4383171758312105426, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+  m_PrefabInstance: {fileID: 6561430995381174612}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6561430995381174614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6843874294179125964, guid: 7b8dd813e88e360b5acf7e00c4f59316, type: 3}
+  m_PrefabInstance: {fileID: 6561430995381174612}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdd11a4135292905b901886b879fcef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

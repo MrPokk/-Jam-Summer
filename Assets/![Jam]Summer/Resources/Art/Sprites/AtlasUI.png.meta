@@ -288,6 +288,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AtlasUI_8
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 37
+        width: 55
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 700a563bb8a8e4321b6a45c42f1cd75c
+      internalID: -1009243553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AtlasUI_9
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6605c81d7a474a1a9999782d73974e1
+      internalID: 1095239451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AtlasUI_10
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b8018e29bbb5be0cb240eae668fe18c
+      internalID: 142586461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -304,12 +370,15 @@ TextureImporter:
     nameFileIdTable:
       AtlasUI_0: 5615049925277274972
       AtlasUI_1: -1072361637
+      AtlasUI_10: 142586461
       AtlasUI_2: -900472886
       AtlasUI_3: 2029772386
       AtlasUI_4: 613563473
       AtlasUI_5: 802755539
       AtlasUI_6: 401759588
       AtlasUI_7: -294178197
+      AtlasUI_8: -1009243553
+      AtlasUI_9: 1095239451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
