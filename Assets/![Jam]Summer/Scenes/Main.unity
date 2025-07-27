@@ -189,7 +189,7 @@ MonoBehaviour:
   LineFront: 13
   LineBack: 14
   LineMaxBuild: 6
-  Setting: {fileID: 11400000, guid: f86f24a80850ab046a4a6cf25c37e119, type: 2}
+  Setting: {fileID: 11400000, guid: aafdf805354b57d47bf3948ec9e16122, type: 2}
   MoneyFromBuild: 0
   BowOnSword: 0
 --- !u!114 &4632351
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardCastle: {fileID: 4774586526250846706, guid: 99daa1e3ac5690746ab78c42866f2758, type: 3}
-  Money: 1000
+  Money: 0
   Team: 1
   PosCastle: {x: 1, y: 3}
   LineFront: 3
